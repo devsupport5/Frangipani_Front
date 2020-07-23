@@ -1,0 +1,133 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <strong>Add</strong> Product      
+    </div>
+    <div class="card-body">
+      <form action="" method="post" class="form-horizontal">
+        
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Category Name</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="select1" name="select1">
+              <option value="0" ng-reflect-value="0">Select Category</option>
+              <option value="1" ng-reflect-value="1">Option #1</option>
+              <option value="2" ng-reflect-value="2">Option #2</option>
+              <option value="3" ng-reflect-value="3">Option #3</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Sub Category Name</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="select1" name="select1">
+              <option value="0" ng-reflect-value="0">Select Sub Category</option>
+              <option value="1" ng-reflect-value="1">Option #1</option>
+              <option value="2" ng-reflect-value="2">Option #2</option>
+              <option value="3" ng-reflect-value="3">Option #3</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Book Title</label>
+          <div class="col-sm-4">
+            <input type="text" id="input-normal" name="input-normal" class="form-control" placeholder="Book Title">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Book Description</label>
+          <div class="col-sm-4">
+            <input type="text" id="input-normal" name="input-normal" class="form-control" placeholder="Book Description">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">SKU</label>
+          <div class="col-sm-4">
+            <input type="text" id="input-normal" name="input-normal" class="form-control" placeholder="SKU">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">ISBN</label>
+          <div class="col-sm-4">
+            <input type="text" id="input-normal" name="input-normal" class="form-control" placeholder="ISBN">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Author</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="select1" name="select1">
+              <option value="0" ng-reflect-value="0">Select Author Category</option>
+              <option value="1" ng-reflect-value="1">Author #1</option>
+              <option value="2" ng-reflect-value="2">Author #2</option>
+              <option value="3" ng-reflect-value="3">Author #3</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Price</label>
+          <div class="col-sm-4">
+            <input type="text" id="input-normal" name="input-normal" class="form-control" placeholder="Price">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Currency Name</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="select1" name="select1">
+              <option value="0" ng-reflect-value="0">Select Currency</option>
+              <option value="1" ng-reflect-value="1">Currency #1</option>
+              <option value="2" ng-reflect-value="2">Currency #2</option>
+              <option value="3" ng-reflect-value="3">Currency #3</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Taxes</label>
+          <div class="col-sm-4">
+            <input type="text" id="input-normal" name="input-normal" class="form-control" placeholder="Taxes">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Binding Type</label>
+          <div class="col-sm-4">
+            <div class="form-check">
+              <input class="form-check-input" id="checkbox1" type="checkbox" value="option1">
+              <label class="form-check-label" for="checkbox1">
+                Hardbound
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="checkbox2" type="checkbox" value="option1">
+              <label class="form-check-label" for="checkbox2">
+                Paperback
+              </label>
+            </div>
+           </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal"> Featured (Y/N)</label>
+          <div class="col-sm-4">
+            <div class="form-check form-check-inline mr-1" id="inline-radios">
+              <input class="form-check-input" id="inlineRadio1" name="inline-radios" type="radio" value="option1">
+              <label class="form-check-label" for="inlineRadio1">Yes</label> &nbsp;&nbsp;
+              <input class="form-check-input" id="inlineRadio1" name="inline-radios" type="radio" value="option1">
+              <label class="form-check-label" for="inlineRadio1">No</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="file-input">Image </label>
+          <div class="col-md-9">
+            <input id="file-input" name="file-input" type="file">
+          </div>
+        </div>  
+       
+
+        
+      </form>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+      <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+    </div>
+  </div>
+ </div>

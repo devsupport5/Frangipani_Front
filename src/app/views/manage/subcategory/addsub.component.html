@@ -1,0 +1,36 @@
+<div class="animated fadeIn">
+  <div class="card" [hidden]="submitted">
+    <form (ngSubmit)="onSubmit()" method="post" class="form-horizontal">
+    <div class="card-header">
+      <strong>Add</strong> Sub Category      
+    </div>
+    <div class="card-body">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Category Name</label>
+          <div class="col-sm-4"> 
+            <select  class="form-control" [(ngModel)]="subcategory.parentId" id="parentId" name="parentId" >
+              <option value="0" ng-reflect-value="0">Select Category</option>
+              <option [value]="category.id" [selected]="category.id == subcategory.parentId" *ngFor="let category of categorys | async; let i = index;">{{category.categoryName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Sub Category Name</label>
+          <div class="col-sm-4">
+            <input type="text" id="categoryName" [(ngModel)]="subcategory.categoryName"  name="categoryName" class="form-control" placeholder="Sub Category Name">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Description</label>
+          <div class="col-sm-4">
+            <input type="text" id="input-normal" [(ngModel)]="subcategory.description"  name="input-normal" class="form-control" placeholder="Description">
+          </div>
+        </div>      
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+      <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+    </div>
+  </form>
+  </div>
+ </div>
