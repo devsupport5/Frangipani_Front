@@ -25,20 +25,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Author 1</td>
-            <td style="text-align: center;"><span ><input type="checkbox" ></span></td>
-            <td style="text-align: right;"><i class="fa fa-edit fa-lg"></i></td>
-            <td style="text-align: right;"><i class="fa fa-remove fa-lg"></i></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Author 2</td>
-            <td style="text-align: center;"><span ><input type="checkbox" ></span></td>
-            <td style="text-align: right;"><i class="fa fa-edit fa-lg"></i></td>
-            <td style="text-align: right;"><i class="fa fa-remove fa-lg"></i></td>
-          </tr>
+          <tr *ngFor="let author of authors | async; let i = index;">
+            <td>{{i+1}}</td>
+            <td>{{author.authorName}}</td>
+            <td style="text-align: center;">
+              <span *ngIf="author.isActive == 0"> 
+                <input (click)="updateAuthorStatus(author.id)"  type="checkbox" >                      
+                </span>
+                <span *ngIf="author.isActive == 1"> 
+                  <input (click)="updateAuthorStatus(author.id)" type="checkbox" checked >
+              </span>
+            </td>
+            <td style="text-align: right;"><i (click)="updateAuthor(author.id)" class="fa fa-edit fa-lg"></i></td>
+            <td style="text-align: right;"><i  (click)="deleteAuthor(author.id)" class="fa fa-remove fa-lg"></i></td>
+          </tr>          
         </tbody>
       </table>
       <ul class="pagination">

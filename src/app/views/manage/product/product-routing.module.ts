@@ -30,6 +30,12 @@ const routes: Routes = [
         data: {
           title: 'add'
         }
+      },{
+        path: 'update/:id',
+        component: AddProductComponent,
+        data: {
+          title: 'update'
+        }
       }        
     ]
   }

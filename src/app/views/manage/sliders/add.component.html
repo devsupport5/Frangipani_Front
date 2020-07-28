@@ -1,35 +1,34 @@
 <div class="animated fadeIn">
-  <div class="card">
+  <div class="card"  [hidden]="submitted">
+    <form   (ngSubmit)="onSubmit()"  method="post" class="form-horizontal">
     <div class="card-header">
-      <strong>Add</strong> Slider
-      
+      <strong>Add</strong> Slider      
     </div>
     <div class="card-body">
-      <form action="" method="post" class="form-horizontal">
-        
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Slider Name</label>
           <div class="col-sm-4">
-            <input type="text" id="input-normal" name="input-normal" class="form-control" placeholder="Slider Name">
-          </div>
+            <input type="text"  id="sliderName" [(ngModel)]="category.sliderName"   name="sliderName" class="form-control" placeholder="Slider Name" >
+          </div> 
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Image </label>
           <div class="col-sm-4">
-            <input id="file-input" name="file-input" type="file">
+            <input  id="file" type="file" class="form-control" >
+            
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Description</label>
           <div class="col-sm-4">
-            <input type="text" id="input-normal" name="input-normal" class="form-control" placeholder="Description">
+            <input type="text" id="description" [(ngModel)]="category.description" name="description" class="form-control" placeholder="Description">
           </div>
-        </div>
-      </form>
+        </div>      
     </div>
     <div class="card-footer">
       <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
       <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
     </div>
+  </form>
   </div>
  </div>

@@ -12,6 +12,7 @@ export class SubCategoryComponent implements OnInit {
   
   categorys: Observable<Subcategory[]>;
   subcategorys: Observable<Subcategory[]>;
+  subcategory: Subcategory = new Subcategory();
 
   constructor(private categoryService: SubcategoryService,
     private router: Router) {}
@@ -34,11 +35,23 @@ export class SubCategoryComponent implements OnInit {
         error => console.log(error));
   }
 
+  updateCategoryStatus(id: number){ 
+    this.categoryService.getCategory(id).subscribe(data => {
+    this.subcategory = data;
+
+     if(this.subcategory.isActive==0)
+       this.subcategory.isActive = 1;
+     else
+       this.subcategory.isActive = 0;
+        
+       this.subcategory.id = id;
+      this.categoryService.updateCategoryStatus(id,this.subcategory);
+   }, error => console.log(error));
+ }
+
   onOptionsSelected(value:number){
     console.log("the selected value is " + value);
-
     this.subcategorys = this.categoryService.getSubCategorys(value);
-
 }
 
 

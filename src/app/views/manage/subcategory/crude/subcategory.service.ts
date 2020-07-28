@@ -25,6 +25,15 @@ export class SubcategoryService {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
+  updateCategoryStatus(id: number ,value: any) {    
+    this.http.put(this.baseUrl+"/"+id, value).subscribe(data => {
+      console.log(data);
+    },
+    error => {
+      console.log('Log the error here: ', error);
+    });    
+  }
+
   deleteCategory(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }

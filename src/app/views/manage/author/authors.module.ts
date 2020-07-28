@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AuthorsComponent } from './authors.component';
 import { AddComponent } from './addauthors.component';
-
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -14,7 +14,8 @@ import { AuthorsRoutingModule } from './authors-routing.module';
 @NgModule({
   imports: [
     CommonModule,
-    AuthorsRoutingModule
+    AuthorsRoutingModule,
+    FormsModule
   ],
   declarations: [
     AuthorsComponent,

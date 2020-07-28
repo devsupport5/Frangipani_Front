@@ -33,7 +33,13 @@ const routes: Routes = [
         data: {
           title: 'add'
         }
-      }           
+      },{
+        path: 'update/:id',
+        component: AddComponent,
+        data: {
+          title: 'update'
+        },
+      }            
     ]
   }
 ];

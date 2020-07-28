@@ -25,9 +25,16 @@
           </thead>
           <tbody>
             <tr *ngFor="let category of categorys | async; let i = index;">
-              <td>{{i}}</td>
+              <td>{{i+1}}</td>
               <td>{{category.categoryName}}</td>
-              <td style="text-align: center;"><span ><input type="checkbox" ></span></td>
+              <td style="text-align: center;">
+                  <span *ngIf="category.isActive == 0"> 
+                      <input (click)="updateCategoryStatus(category.id)"  type="checkbox" >                      
+                  </span>
+                  <span *ngIf="category.isActive == 1"> 
+                    <input (click)="updateCategoryStatus(category.id)" type="checkbox" checked >
+                </span>
+              </td>
               <td style="text-align: right;"><i (click)="updateCategory(category.id)" class="fa fa-edit fa-lg"></i></td>
               <td style="text-align: right;"><i  (click)="deleteCategory(category.id)" class="fa fa-remove fa-lg"></i></td>
             </tr>            

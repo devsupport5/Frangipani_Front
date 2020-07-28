@@ -5,26 +5,25 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class SliderService {
 
-  private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys';
-  private baseUrlstatus = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys/status';
+  private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/slider/sliders';
 
   constructor(private http: HttpClient) { }
 
-  getCategory(id: number): Observable<any> {
+  getSlider(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  createCategory(Category: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, Category);
+  createSlider(Slider: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`, Slider);
   }
 
-  updateCategory(id: number, value: any): Observable<Object> {
+  updateSlider(id: number, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
-  updateCategoryStatus(id: number ,value: any) {    
+  updateSliderStatus(id: number ,value: any) {    
     this.http.put(this.baseUrl+"/"+id, value).subscribe(data => {
       console.log(data);
     },
@@ -33,11 +32,11 @@ export class CategoryService {
     });    
   }
 
-  deleteCategory(id: number): Observable<any> {
+  deleteSlider(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  getCategorysList(): Observable<any> {
+  getSliderList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 }

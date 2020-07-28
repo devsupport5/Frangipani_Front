@@ -17,35 +17,29 @@
           <thead>
             <tr>
               <th style="width: 3%;">#</th>
-              <th style="width: 82%;">Name</th>
+              <th style="width: 41%;">Name</th>
+              <th style="width: 41%;">Symbol</th>
               <th style="width: 5%;text-align: center;">Status</th>
               <th style="width: 5%;text-align: right;">Edit</th>
               <th style="width: 5%;text-align: right;">Delete</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Currency 1</td>
-              <td style="text-align: center;"><span ><input type="checkbox" ></span></td>
-              <td style="text-align: right;"><i class="fa fa-edit fa-lg"></i></td>
-              <td style="text-align: right;"><i class="fa fa-remove fa-lg"></i></td>
+            <tr *ngFor="let currency of currencys | async; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{currency.currencyName}}</td>
+              <td>{{currency.currencySymbol}}</td>
+              <td style="text-align: center;">
+                <span *ngIf="currency.isActive == 0"> 
+                  <input (click)="updateCurrencyStatus(currency.id)"  type="checkbox" >                      
+                  </span>
+                  <span *ngIf="currency.isActive == 1"> 
+                    <input (click)="updateCurrencyStatus(currency.id)" type="checkbox" checked >
+                </span>
+              </td>
+              <td style="text-align: right;"><i (click)="updateCurrency(currency.id)" class="fa fa-edit fa-lg"></i></td>
+              <td style="text-align: right;"><i  (click)="deleteCurrency(currency.id)" class="fa fa-remove fa-lg"></i></td>
             </tr>
-            <tr>
-              <td>2</td>
-              <td>Currency 2</td>
-              <td style="text-align: center;"><span ><input type="checkbox" ></span></td>
-              <td style="text-align: right;"><i class="fa fa-edit fa-lg"></i></td>
-              <td style="text-align: right;"><i class="fa fa-remove fa-lg"></i></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Currency 3</td>
-              <td style="text-align: center;"><span ><input type="checkbox" ></span></td>
-              <td style="text-align: right;"><i class="fa fa-edit fa-lg"></i></td>
-              <td style="text-align: right;"><i class="fa fa-remove fa-lg"></i></td>
-            </tr>
-           
           </tbody>
         </table>
         <ul class="pagination">

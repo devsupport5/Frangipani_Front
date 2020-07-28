@@ -5,26 +5,25 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class AuthorService {
 
-  private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys';
-  private baseUrlstatus = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys/status';
+  private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/auth/authors';
 
   constructor(private http: HttpClient) { }
 
-  getCategory(id: number): Observable<any> {
+  getAuthor(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  createCategory(Category: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, Category);
+  createAuthor(Author: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`, Author);
   }
 
-  updateCategory(id: number, value: any): Observable<Object> {
+  updateAuthor(id: number, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
-  updateCategoryStatus(id: number ,value: any) {    
+  updateAuthorStatus(id: number ,value: any) {    
     this.http.put(this.baseUrl+"/"+id, value).subscribe(data => {
       console.log(data);
     },
@@ -33,11 +32,11 @@ export class CategoryService {
     });    
   }
 
-  deleteCategory(id: number): Observable<any> {
+  deleteAuthor(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  getCategorysList(): Observable<any> {
+  getAuthorList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 }

@@ -3,4 +3,5 @@ export class Subcategory {
   categoryName: string;
   description: string;
   parentId : number;
+  isActive : number;
 }

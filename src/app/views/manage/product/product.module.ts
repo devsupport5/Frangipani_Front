@@ -7,12 +7,13 @@ import { AddProductComponent } from './addproduct.component';
 
 // Theme Routing
 import { ProductRoutingModule } from './product-routing.module';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    ProductRoutingModule
+    ProductRoutingModule,
+    FormsModule
   ],
   declarations: [
     ProductComponent, 

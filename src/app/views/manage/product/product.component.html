@@ -16,27 +16,31 @@
         <thead>
           <tr>
             <th style="width: 3%;">#</th>
-            <th style="width: 82%;">Name</th>
+            <th style="width: 28%;">Book Title</th>
+            <th style="width: 27%;">SKU</th>
+            <th style="width: 27%;">ISNB</th>
             <th style="width: 5%;text-align: center;">Status</th>
             <th style="width: 5%;text-align: right;">Edit</th>
             <th style="width: 5%;text-align: right;">Delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Product 1</td>
-            <td style="text-align: center;"><span ><input type="checkbox" ></span></td>
-            <td style="text-align: right;"><i class="fa fa-edit fa-lg"></i></td>
-            <td style="text-align: right;"><i class="fa fa-remove fa-lg"></i></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Product 2</td>
-            <td style="text-align: center;"><span ><input type="checkbox" ></span></td>
-            <td style="text-align: right;"><i class="fa fa-edit fa-lg"></i></td>
-            <td style="text-align: right;"><i class="fa fa-remove fa-lg"></i></td>
-          </tr>
+          <tr *ngFor="let product of products | async; let i = index;">
+            <td>{{i+1}}</td>
+            <td>{{product.bookTitle}}</td>
+            <td>{{product.bookSKU}}</td>
+            <td>{{product.bookISNB}}</td>
+            <td style="text-align: center;">
+              <span *ngIf="product.isActive == 0"> 
+                <input (click)="updateProductStatus(product.id)"  type="checkbox" >                      
+                </span>
+                <span *ngIf="product.isActive == 1"> 
+                  <input (click)="updateProductStatus(product.id)" type="checkbox" checked >
+              </span>
+            </td>
+            <td style="text-align: right;"><i (click)="updateProduct(product.id)" class="fa fa-edit fa-lg"></i></td>
+            <td style="text-align: right;"><i  (click)="deleteProduct(product.id)" class="fa fa-remove fa-lg"></i></td>
+          </tr>          
         </tbody>
       </table>
       <ul class="pagination">
