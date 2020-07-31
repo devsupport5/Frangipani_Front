@@ -18,16 +18,15 @@
         <thead>
           <tr>
             <th style="width: 3%;">#</th>
-            <th style="width: 82%;">Name</th>
+            <th style="width: 87%;">Name</th>
             <th style="width: 5%;text-align: center;">Status</th>
-            <th style="width: 5%;text-align: right;">Edit</th>
             <th style="width: 5%;text-align: right;">Delete</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let author of authors | async; let i = index;">
-            <td>{{i+1}}</td>
-            <td>{{author.authorName}}</td>
+            <td class="rowData" (click)="updateAuthor(author.id)" >{{i+1}}</td>
+            <td class="rowData" (click)="updateAuthor(author.id)" >{{author.authorName}}</td>
             <td style="text-align: center;">
               <span *ngIf="author.isActive == 0"> 
                 <input (click)="updateAuthorStatus(author.id)"  type="checkbox" >                      
@@ -36,7 +35,6 @@
                   <input (click)="updateAuthorStatus(author.id)" type="checkbox" checked >
               </span>
             </td>
-            <td style="text-align: right;"><i (click)="updateAuthor(author.id)" class="fa fa-edit fa-lg"></i></td>
             <td style="text-align: right;"><i  (click)="deleteAuthor(author.id)" class="fa fa-remove fa-lg"></i></td>
           </tr>          
         </tbody>

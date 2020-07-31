@@ -26,7 +26,7 @@ export class ProductComponent  implements OnInit {
     this.products = this.productService.getProductList();
   }
 
-  deleteProducts(id: number) {
+  deleteProduct(id: number) {
     this.productService.deleteProduct(id)
       .subscribe(
         data => {
@@ -49,6 +49,20 @@ export class ProductComponent  implements OnInit {
       this.productService.updateProductStatus(id,this.product);
    }, error => console.log(error));
  }
+
+ updateProductFeatured(id: number){ 
+  this.productService.getProduct(id).subscribe(data => {
+  this.product = data;
+
+   if(this.product.isFeatured==0)
+     this.product.isFeatured = 1;
+   else
+     this.product.isFeatured = 0;
+      
+     this.product.id = id;
+    this.productService.updateProductStatus(id,this.product);
+ }, error => console.log(error));
+}
 
   onOptionsSelected(value:number){
     console.log("the selected value is " + value);

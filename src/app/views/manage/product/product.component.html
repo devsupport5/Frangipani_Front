@@ -16,20 +16,20 @@
         <thead>
           <tr>
             <th style="width: 3%;">#</th>
-            <th style="width: 28%;">Book Title</th>
+            <th style="width: 27%;">Book Title</th>
             <th style="width: 27%;">SKU</th>
             <th style="width: 27%;">ISNB</th>
             <th style="width: 5%;text-align: center;">Status</th>
-            <th style="width: 5%;text-align: right;">Edit</th>
+            <th style="width: 5%;text-align: center;">Featured</th>
             <th style="width: 5%;text-align: right;">Delete</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let product of products | async; let i = index;">
-            <td>{{i+1}}</td>
-            <td>{{product.bookTitle}}</td>
-            <td>{{product.bookSKU}}</td>
-            <td>{{product.bookISNB}}</td>
+            <td class="rowData" (click)="updateProduct(product.id)">{{i+1}}</td>
+            <td class="rowData" (click)="updateProduct(product.id)">{{product.bookTitle}}</td>
+            <td class="rowData" (click)="updateProduct(product.id)">{{product.bookSKU}}</td>
+            <td class="rowData" (click)="updateProduct(product.id)">{{product.bookISNB}}</td>
             <td style="text-align: center;">
               <span *ngIf="product.isActive == 0"> 
                 <input (click)="updateProductStatus(product.id)"  type="checkbox" >                      
@@ -38,7 +38,14 @@
                   <input (click)="updateProductStatus(product.id)" type="checkbox" checked >
               </span>
             </td>
-            <td style="text-align: right;"><i (click)="updateProduct(product.id)" class="fa fa-edit fa-lg"></i></td>
+            <td style="text-align: center;">
+              <span *ngIf="product.isFeatured == 0"> 
+                <input (click)="updateProductFeatured(product.id)"  type="checkbox" >                      
+                </span>
+                <span *ngIf="product.isFeatured == 1"> 
+                  <input (click)="updateProductFeatured(product.id)" type="checkbox" checked >
+              </span>
+            </td>
             <td style="text-align: right;"><i  (click)="deleteProduct(product.id)" class="fa fa-remove fa-lg"></i></td>
           </tr>          
         </tbody>

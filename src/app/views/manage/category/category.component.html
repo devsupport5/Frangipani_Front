@@ -17,16 +17,15 @@
           <thead>
             <tr>
               <th style="width: 3%;">#</th>
-              <th style="width: 82%;">Name</th>
+              <th style="width: 87%;">Name</th>
               <th style="width: 5%;text-align: center;">Status</th>
-              <th style="width: 5%;text-align: right;">Edit</th>
               <th style="width: 5%;text-align: right;">Delete</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let category of categorys | async; let i = index;">
-              <td>{{i+1}}</td>
-              <td>{{category.categoryName}}</td>
+              <td class="rowData" (click)="updateCategory(category.id)">{{i+1}}</td>
+              <td class="rowData" (click)="updateCategory(category.id)">{{category.categoryName}}</td>
               <td style="text-align: center;">
                   <span *ngIf="category.isActive == 0"> 
                       <input (click)="updateCategoryStatus(category.id)"  type="checkbox" >                      
@@ -35,7 +34,6 @@
                     <input (click)="updateCategoryStatus(category.id)" type="checkbox" checked >
                 </span>
               </td>
-              <td style="text-align: right;"><i (click)="updateCategory(category.id)" class="fa fa-edit fa-lg"></i></td>
               <td style="text-align: right;"><i  (click)="deleteCategory(category.id)" class="fa fa-remove fa-lg"></i></td>
             </tr>            
           </tbody>

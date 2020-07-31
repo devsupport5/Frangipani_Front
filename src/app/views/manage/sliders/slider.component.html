@@ -15,16 +15,15 @@
           <thead>
             <tr>
               <th style="width: 3%;">#</th>
-              <th style="width: 82%;">Name</th>
+              <th style="width: 87%;">Name</th>
               <th style="width: 5%;text-align: center;">Status</th>
-              <th style="width: 5%;text-align: right;">Edit</th>
               <th style="width: 5%;text-align: right;">Delete</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let slider of sliders | async; let i = index;">
-              <td>{{i+1}}</td>
-              <td>{{slider.sliderName}}</td>
+              <td class="rowData" (click)="updateSlider(slider.id)">{{i+1}}</td>
+              <td class="rowData" (click)="updateSlider(slider.id)">{{slider.sliderName}}</td>
               <td style="text-align: center;">
                 <span *ngIf="slider.isActive == 0"> 
                   <input (click)="updateSliderStatus(slider.id)"  type="checkbox" >                      
@@ -33,7 +32,6 @@
                     <input (click)="updateSliderStatus(slider.id)" type="checkbox" checked >
                 </span>
               </td>
-              <td style="text-align: right;"><i (click)="updateSlider(slider.id)" class="fa fa-edit fa-lg"></i></td>
               <td style="text-align: right;"><i  (click)="deleteSlider(slider.id)" class="fa fa-remove fa-lg"></i></td>
             </tr>             
           </tbody>

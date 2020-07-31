@@ -1,25 +1,24 @@
 <div class="animated fadeIn">
   <div class="card">
     <div class="card-header">
-      Sub Category List
-
+      ProductTab List
       <div class="card-header-actions">
-        <a href="/#/subcategory/add">
+        <a href="/#/producttab/add">
           <button type="button" class="btn btn-primary">
             Add &nbsp; <i class="fa fa-plus-square fa-lg"></i>
-          </button>   
+          </button>    
         </a>
       </div>
-
+ 
     </div>
     <div class="card-body">
 
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="input-normal">Select Category</label>
+        <label class="col-sm-2 col-form-label" for="input-normal">Select Product</label>
         <div class="col-sm-4">
           <select #mySelect (change)='onOptionsSelected(mySelect.value)' class="form-control" id="select1" name="select1" >
-            <option value="" ng-reflect-value="">Select Category</option>
-            <option [value]="category.id" *ngFor="let category of categorys | async; let i = index;">{{category.categoryName}}</option>
+            <option value="" ng-reflect-value="">Select Product</option>
+            <option [value]="product.id" *ngFor="let product of products | async; let i = index;">{{product.bookTitle}}</option>
           </select>
         </div>
       </div>
@@ -28,25 +27,27 @@
         <thead>
           <tr>
             <th style="width: 3%;">#</th>
-            <th style="width: 87%;">Name</th>
+            <th style="width: 27%;">Tab Name</th>
+            <th style="width: 27%;">Sequence</th>
             <th style="width: 5%;text-align: center;">Status</th>
             <th style="width: 5%;text-align: right;">Delete</th>
           </tr>
-        </thead>
+        </thead> 
         <tbody>
-          <tr *ngFor="let category of subcategorys | async; let i = index;">
-            <td class="rowData" (click)="updateCategory(category.id)">{{i+1}}</td>
-            <td class="rowData" (click)="updateCategory(category.id)" >{{category.categoryName}}</td>
+          <tr *ngFor="let producttab of producttabs | async; let i = index;">
+            <td class="rowData" (click)="updateProduct(producttab.id)">{{i+1}}</td>
+            <td class="rowData" (click)="updateProduct(producttab.id)">{{producttab.tabName}}</td>
+            <td class="rowData" (click)="updateProduct(producttab.id)">{{producttab.sequence}}</td>
             <td style="text-align: center;">
-              <span *ngIf="category.isActive == 0"> 
-                <input (click)="updateCategoryStatus(category.id)"  type="checkbox" >                      
+              <span *ngIf="producttab.isActive == 0"> 
+                <input (click)="updateProductStatus(producttab.id)"  type="checkbox" >                      
+                </span>
+                <span *ngIf="producttab.isActive == 1"> 
+                  <input (click)="updateProductStatus(producttab.id)" type="checkbox" checked >
               </span>
-              <span *ngIf="category.isActive == 1"> 
-                <input (click)="updateCategoryStatus(category.id)" type="checkbox" checked >
-              </span>  
-            </td>
-            <td style="text-align: right;"><i  (click)="deleteCategory(category.id)" class="fa fa-remove fa-lg"></i></td>
-          </tr>           
+            </td>             
+            <td style="text-align: right;"><i  (click)="deleteProduct(producttab.id)" class="fa fa-remove fa-lg"></i></td>
+          </tr>          
         </tbody>
       </table>
       <ul class="pagination">

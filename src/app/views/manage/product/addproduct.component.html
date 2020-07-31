@@ -7,18 +7,18 @@
     <div class="card-body">
        <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Category Name</label>
-          <div class="col-sm-4"> 
+          <div class="col-sm-4">
             <select  class="form-control" #mySelect (change)='onOptionsSelected(mySelect.value)'  [(ngModel)]="product.categoryId" id="categoryId" name="categoryId" >
-              <option value="0" ng-reflect-value="0">Select Category</option>
+              <option value="0"  ng-reflect-value="0">Select Category</option>
               <option [value]="category.id" [selected]="category.id == product.categoryId" *ngFor="let category of categorys | async; let i = index;">{{category.categoryName}}</option>
-            </select>
+            </select>           
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Sub Category Name</label>
           <div class="col-sm-4">
-            <select  class="form-control" #mySelect (change)='onOptionsSelected(mySelect.value)'  [(ngModel)]="product.subCategoryId" id="subCategoryId" name="subCategoryId" >
-              <option value="0" ng-reflect-value="0">Select Sub Category</option>
+            <select  class="form-control"   [(ngModel)]="product.subCategoryId" id="subCategoryId" name="subCategoryId" >
+              <option value="0" selected="selected" ng-reflect-value="0">Select Sub Category</option>
               <option [value]="subcategory.id" [selected]="subcategory.id == product.subCategoryId" *ngFor="let subcategory of subcategorys | async; let i = index;">{{subcategory.categoryName}}</option>
             </select>
           </div>
@@ -58,9 +58,15 @@
         </div>
         
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label" for="input-normal">Price</label>
+          <label class="col-sm-2 col-form-label" for="input-normal">Original Price</label>
           <div class="col-sm-4">
-            <input type="text" id="bookPrice" [(ngModel)]="product.bookPrice" name="bookPrice" class="form-control" placeholder="Price">
+            <input type="text" id="originalPrice" [(ngModel)]="product.originalPrice" name="originalPrice" class="form-control" placeholder="Original Price">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Discounted Price</label>
+          <div class="col-sm-4">
+            <input type="text" id="discountedPrice" [(ngModel)]="product.discountedPrice" name="discountedPrice" class="form-control" placeholder="Discounted Price">
           </div>
         </div>
         <div class="form-group row">
@@ -109,7 +115,8 @@
         <div class="form-group row">
           <label class="col-md-2 col-form-label" for="file-input">Image </label>
           <div class="col-md-9">
-            <input id="file-input" name="file-input" type="file">
+            <input id="file-input" name="file-input"  (change)="onFileChanged($event)" type="file">
+            <input id="file-input" name="file-input" [(ngModel)]="product.productImage" name="productImage" id="productImage" type="hidden">
           </div>
         </div>  
     </div>

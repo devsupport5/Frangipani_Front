@@ -12,7 +12,7 @@ import { RegisterComponent } from './views/register/register.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -88,6 +88,9 @@ export const routes: Routes = [
       {
         path: 'product',
         loadChildren: () => import('./views/manage/product/product.module').then(m => m.ProductModule)
+      },{
+        path: 'producttab',
+        loadChildren: () => import('./views/manage/producttab/producttab.module').then(m => m.ProductTabModule)
       },
       {
         path: 'subcategory',

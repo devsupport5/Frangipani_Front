@@ -48,6 +48,16 @@ export class AddProductComponent  implements OnInit  {
         this.subcategorys = this.productService.getSubCategorys(data.categoryId);
       }, error => console.log(error));
 
+
+      
+      
+      if(this.product){
+        this.product.categoryId = 0;
+        this.product.subCategoryId = 0;
+        this.product.currencyId = 0;
+        this.product.authorId = 0;
+      }
+
   }
 
   newCategory(): void {
@@ -70,5 +80,25 @@ export class AddProductComponent  implements OnInit  {
   gotoList() {
     this.router.navigate(['/product']);
   }
- 
+
+  getBase64(event) {
+    let me = this;
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      //me.modelvalue = reader.result;
+      me.product.productImage = reader.result.toString();
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+ }
+
+  onFileChanged(event) {
+    console.log("This is call file")
+    this.getBase64(event);
+  }
+
 }

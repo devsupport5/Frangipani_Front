@@ -17,18 +17,17 @@
           <thead>
             <tr>
               <th style="width: 3%;">#</th>
-              <th style="width: 41%;">Name</th>
+              <th style="width: 46%;">Name</th>
               <th style="width: 41%;">Symbol</th>
               <th style="width: 5%;text-align: center;">Status</th>
-              <th style="width: 5%;text-align: right;">Edit</th>
               <th style="width: 5%;text-align: right;">Delete</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let currency of currencys | async; let i = index;">
-              <td>{{i+1}}</td>
-              <td>{{currency.currencyName}}</td>
-              <td>{{currency.currencySymbol}}</td>
+              <td class="rowData" (click)="updateCurrency(currency.id)">{{i+1}}</td>
+              <td class="rowData" (click)="updateCurrency(currency.id)">{{currency.currencyName}}</td>
+              <td class="rowData" (click)="updateCurrency(currency.id)">{{currency.currencySymbol}}</td>
               <td style="text-align: center;">
                 <span *ngIf="currency.isActive == 0"> 
                   <input (click)="updateCurrencyStatus(currency.id)"  type="checkbox" >                      
@@ -37,7 +36,6 @@
                     <input (click)="updateCurrencyStatus(currency.id)" type="checkbox" checked >
                 </span>
               </td>
-              <td style="text-align: right;"><i (click)="updateCurrency(currency.id)" class="fa fa-edit fa-lg"></i></td>
               <td style="text-align: right;"><i  (click)="deleteCurrency(currency.id)" class="fa fa-remove fa-lg"></i></td>
             </tr>
           </tbody>

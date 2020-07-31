@@ -13,5 +13,9 @@ export class Product {
     bookTaxes: number;
     bookPrice : number;
     isActive:number;
+    isFeatured:number;
+    originalPrice:number;
+    discountedPrice:number;
+    productImage: string;
   }
   
