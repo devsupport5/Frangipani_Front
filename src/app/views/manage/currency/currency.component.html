@@ -30,10 +30,10 @@
               <td class="rowData" (click)="updateCurrency(currency.id)">{{currency.currencySymbol}}</td>
               <td style="text-align: center;">
                 <span *ngIf="currency.isActive == 0"> 
-                  <input (click)="updateCurrencyStatus(currency.id)"  type="checkbox" >                      
+                  <input (click)="updateCurrencyStatus(currency.id)"  type="checkbox" checked>                      
                   </span>
                   <span *ngIf="currency.isActive == 1"> 
-                    <input (click)="updateCurrencyStatus(currency.id)" type="checkbox" checked >
+                    <input (click)="updateCurrencyStatus(currency.id)" type="checkbox"  >
                 </span>
               </td>
               <td style="text-align: right;"><i  (click)="deleteCurrency(currency.id)" class="fa fa-remove fa-lg"></i></td>

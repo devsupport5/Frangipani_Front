@@ -4,4 +4,5 @@ export class Author {
   description: string;
   imagePath: string;
   isActive:number;
+  image: String;
 }

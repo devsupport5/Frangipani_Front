@@ -39,10 +39,10 @@
             <td class="rowData" (click)="updateCategory(category.id)" >{{category.categoryName}}</td>
             <td style="text-align: center;">
               <span *ngIf="category.isActive == 0"> 
-                <input (click)="updateCategoryStatus(category.id)"  type="checkbox" >                      
+                <input (click)="updateCategoryStatus(category.id)"  type="checkbox" checked>                      
               </span>
               <span *ngIf="category.isActive == 1"> 
-                <input (click)="updateCategoryStatus(category.id)" type="checkbox" checked >
+                <input (click)="updateCategoryStatus(category.id)" type="checkbox"  >
               </span>  
             </td>
             <td style="text-align: right;"><i  (click)="deleteCategory(category.id)" class="fa fa-remove fa-lg"></i></td>

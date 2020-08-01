@@ -31,19 +31,19 @@
             <td class="rowData" (click)="updateProduct(product.id)">{{product.bookSKU}}</td>
             <td class="rowData" (click)="updateProduct(product.id)">{{product.bookISNB}}</td>
             <td style="text-align: center;">
-              <span *ngIf="product.isActive == 0"> 
-                <input (click)="updateProductStatus(product.id)"  type="checkbox" >                      
+              <span *ngIf="product.isActive == 0">  
+                <input (click)="updateProductStatus(product.id)"  type="checkbox" checked>                      
                 </span>
                 <span *ngIf="product.isActive == 1"> 
-                  <input (click)="updateProductStatus(product.id)" type="checkbox" checked >
+                  <input (click)="updateProductStatus(product.id)" type="checkbox"  >
               </span>
             </td>
             <td style="text-align: center;">
               <span *ngIf="product.isFeatured == 0"> 
-                <input (click)="updateProductFeatured(product.id)"  type="checkbox" >                      
+                <input (click)="updateProductFeatured(product.id)"  type="checkbox" checked>                      
                 </span>
                 <span *ngIf="product.isFeatured == 1"> 
-                  <input (click)="updateProductFeatured(product.id)" type="checkbox" checked >
+                  <input (click)="updateProductFeatured(product.id)" type="checkbox"  >
               </span>
             </td>
             <td style="text-align: right;"><i  (click)="deleteProduct(product.id)" class="fa fa-remove fa-lg"></i></td>

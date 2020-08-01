@@ -3,4 +3,5 @@ export class Category {
   categoryName: string;
   description: string;
   isActive: number;
+  image: String;
 }

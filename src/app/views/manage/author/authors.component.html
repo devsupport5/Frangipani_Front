@@ -29,10 +29,10 @@
             <td class="rowData" (click)="updateAuthor(author.id)" >{{author.authorName}}</td>
             <td style="text-align: center;">
               <span *ngIf="author.isActive == 0"> 
-                <input (click)="updateAuthorStatus(author.id)"  type="checkbox" >                      
+                <input (click)="updateAuthorStatus(author.id)"  type="checkbox" checked>                      
                 </span>
                 <span *ngIf="author.isActive == 1"> 
-                  <input (click)="updateAuthorStatus(author.id)" type="checkbox" checked >
+                  <input (click)="updateAuthorStatus(author.id)" type="checkbox"  >
               </span>
             </td>
             <td style="text-align: right;"><i  (click)="deleteAuthor(author.id)" class="fa fa-remove fa-lg"></i></td>

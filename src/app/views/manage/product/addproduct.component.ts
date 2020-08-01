@@ -88,7 +88,7 @@ export class AddProductComponent  implements OnInit  {
     reader.readAsDataURL(file);
     reader.onload = function () {
       //me.modelvalue = reader.result;
-      me.product.productImage = reader.result.toString();
+      me.product.image = reader.result.toString();
       console.log(reader.result);
     };
     reader.onerror = function (error) {

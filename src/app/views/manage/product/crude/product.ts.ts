@@ -17,5 +17,6 @@ export class Product {
     originalPrice:number;
     discountedPrice:number;
     productImage: string;
+    image:string;
   }
   

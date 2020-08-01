@@ -40,10 +40,10 @@
             <td class="rowData" (click)="updateProduct(producttab.id)">{{producttab.sequence}}</td>
             <td style="text-align: center;">
               <span *ngIf="producttab.isActive == 0"> 
-                <input (click)="updateProductStatus(producttab.id)"  type="checkbox" >                      
+                <input (click)="updateProductStatus(producttab.id)"  type="checkbox" checked>                      
                 </span>
                 <span *ngIf="producttab.isActive == 1"> 
-                  <input (click)="updateProductStatus(producttab.id)" type="checkbox" checked >
+                  <input (click)="updateProductStatus(producttab.id)" type="checkbox"  >
               </span>
             </td>             
             <td style="text-align: right;"><i  (click)="deleteProduct(producttab.id)" class="fa fa-remove fa-lg"></i></td>

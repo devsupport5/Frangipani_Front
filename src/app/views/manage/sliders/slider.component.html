@@ -26,10 +26,10 @@
               <td class="rowData" (click)="updateSlider(slider.id)">{{slider.sliderName}}</td>
               <td style="text-align: center;">
                 <span *ngIf="slider.isActive == 0"> 
-                  <input (click)="updateSliderStatus(slider.id)"  type="checkbox" >                      
+                  <input (click)="updateSliderStatus(slider.id)"  type="checkbox" checked>                      
                   </span>
                   <span *ngIf="slider.isActive == 1"> 
-                    <input (click)="updateSliderStatus(slider.id)" type="checkbox" checked >
+                    <input (click)="updateSliderStatus(slider.id)" type="checkbox"  >
                 </span>
               </td>
               <td style="text-align: right;"><i  (click)="deleteSlider(slider.id)" class="fa fa-remove fa-lg"></i></td>
