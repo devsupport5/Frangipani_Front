@@ -35,6 +35,27 @@ export class AddComponent implements OnInit  {
 
   }
  
+  onFileChanged(event) {
+    console.log("This is call file")
+    this.getBase64(event);
+  }
+
+  getBase64(event) {
+    let me = this;
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      //me.modelvalue = reader.result;
+      me.category.image = reader.result.toString();
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+ }
+
+
 
   /*onFileChange(event : any) {
   
