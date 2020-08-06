@@ -116,8 +116,21 @@
         <div class="form-group row">
           <label class="col-md-2 col-form-label" for="file-input">Image </label>
           <div class="col-md-9">
-            <input id="file-input" name="file-input"  (change)="onFileChanged($event)" type="file">
-            <input id="file-input" name="file-input" [(ngModel)]="product.image" name="image" id="image" type="hidden">
+            <!--<input id="file-input" name="file-input"  (change)="onFileChanged($event)" type="file">
+            <input id="file-input" name="file-input" [(ngModel)]="product.image" name="image" id="image" type="hidden">-->
+            <input type="file" (change)="fileChangeEvent($event)" />
+
+            <image-cropper 
+            [imageChangedEvent]="imageChangedEvent" 
+            [maintainAspectRatio]="true" 
+            [aspectRatio]="14 / 18"
+            [resizeToWidth]="256" 
+            format="png" 
+            (imageCropped)="imageCropped($event)" 
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" 
+            (loadImageFailed)="loadImageFailed()"></image-cropper>
+            <img [src]="croppedImage" />
             <img [src]="product.image"  height="35" width="35" alt=""> 
           </div>
         </div>  

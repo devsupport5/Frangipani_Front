@@ -6,7 +6,7 @@ import { CategoryComponent } from './category.component';
 import { AddComponent } from './add.component';
 import { FormsModule } from '@angular/forms';
 
-
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 // Theme Routing
@@ -16,7 +16,8 @@ import { CategoryRoutingModule } from './category-routing.module';
   imports: [
     CommonModule,
     CategoryRoutingModule,
-    FormsModule
+    FormsModule,
+    ImageCropperModule
   ],
   declarations: [
     CategoryComponent,

@@ -1,18 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys';
-  private baseUrlstatus = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys/status';
+  //private serverUrl = environment.baseUrl;
+  
+  
+
+  private baseUrl = environment.APIBaseURL + "cat/categorys"; //'http://localhost:8080/springboot-crud-rest/api/cat/categorys';
+  //private baseUrlstatus = environment.APIBaseURL  = "cat/categorys/status";// 'http://localhost:8080/springboot-crud-rest/api/cat/categorys/status';
 
   constructor(private http: HttpClient) { }
 
+  
+  
   getCategory(id: number): Observable<any> {
+    
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
@@ -38,6 +47,7 @@ export class CategoryService {
   }
 
   getCategorysList(): Observable<any> {
+    console.log("Base url"+this.baseUrl);
     return this.http.get(`${this.baseUrl}`);
   }
 }

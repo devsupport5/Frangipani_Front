@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorService {
 
-  private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/auth/authors';
+  private baseUrl = environment.APIBaseURL + "auth/authors";
+  //private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/auth/authors';
 
   constructor(private http: HttpClient) { }
 

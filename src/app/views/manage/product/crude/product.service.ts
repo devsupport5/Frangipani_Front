@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/product/products';
-  private categoryUrl = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys';
-  private subCategory = 'http://localhost:8080/springboot-crud-rest/api/cat/subcategorys';
-  private currencysUrl = 'http://localhost:8080/springboot-crud-rest/api/currency/currencys';
-  private authorsUrl = 'http://localhost:8080/springboot-crud-rest/api/auth/authors';
+  private baseUrl = environment.APIBaseURL + "product/products";
+  private categoryUrl = environment.APIBaseURL + "cat/categorys";
+  private subCategory = environment.APIBaseURL + "cat/subcategorys";
+  private currencysUrl = environment.APIBaseURL + "currency/currencys";
+  private authorsUrl = environment.APIBaseURL + "auth/authors";
+
+  //private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/product/products';
+  //private categoryUrl = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys';
+  //private subCategory = 'http://localhost:8080/springboot-crud-rest/api/cat/subcategorys';
+  //private currencysUrl = 'http://localhost:8080/springboot-crud-rest/api/currency/currencys';
+  //private authorsUrl = 'http://localhost:8080/springboot-crud-rest/api/auth/authors';
 
   constructor(private http: HttpClient) { }
 

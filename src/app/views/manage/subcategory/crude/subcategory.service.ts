@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubcategoryService {
 
-  private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys';
-  private subCategory = 'http://localhost:8080/springboot-crud-rest/api/cat/subcategorys';
+
+  private baseUrl = environment.APIBaseURL + "cat/categorys";
+  private subCategory = environment.APIBaseURL + "cat/subcategorys";
+  //private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys';
+  //private subCategory = 'http://localhost:8080/springboot-crud-rest/api/cat/subcategorys';
   
 
   constructor(private http: HttpClient) { }

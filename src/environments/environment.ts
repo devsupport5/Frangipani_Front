@@ -3,6 +3,15 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+const isProduction = false;
+const devAPIBaseURL = 'http://localhost:8080/springboot-crud-rest/api/';
+const prodAPIBaseURL = 'https://www.infoanalytica.com/';
+
+
 export const environment = {
-  production: false
+  production: false,
+  APIBaseURL: isProduction ? prodAPIBaseURL : devAPIBaseURL
 };
+
+
+ 

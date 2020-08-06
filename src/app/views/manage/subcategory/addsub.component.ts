@@ -22,7 +22,7 @@ export class AddsubComponent implements OnInit  {
     this.categorys = this.categoryService.getCategorysList();
   }
    
-
+ 
   ngOnInit() {
     this.reloadData();
     this.subcategory = new Subcategory();
@@ -33,6 +33,7 @@ export class AddsubComponent implements OnInit  {
         this.subcategory = data;
       }, error => console.log(error));
 
+      this.subcategory.parentId = 0;
   }
 
   newCategory(): void {

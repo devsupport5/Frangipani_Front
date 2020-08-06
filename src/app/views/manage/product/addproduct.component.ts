@@ -6,8 +6,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { ActivatedRoute,Router } from '@angular/router';
 import { ProductService } from './crude/product.service';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
-
+ 
 @Component({
   templateUrl: 'addproduct.component.html'
 })
@@ -20,6 +21,10 @@ export class AddProductComponent  implements OnInit  {
   authors: Observable<Author[]>;
   currencys: Observable<Currency[]>;
   subcategorys: Observable<Category[]>;
+
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  flag: number = 0;
 
   constructor(private route: ActivatedRoute,private productService: ProductService,
     private router: Router) { }
@@ -59,6 +64,12 @@ export class AddProductComponent  implements OnInit  {
       }
 
   }
+
+
+
+
+
+
 
   newCategory(): void {
     this.submitted = false;
@@ -100,5 +111,23 @@ export class AddProductComponent  implements OnInit  {
     console.log("This is call file")
     this.getBase64(event);
   }
+
+fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+}
+imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    console.log(this.croppedImage);
+    this.product.image = this.croppedImage;
+}
+imageLoaded() {
+    this.flag = 1;
+}
+cropperReady() {
+    /* cropper ready */
+}
+loadImageFailed() {
+    /* show message */
+}
 
 }

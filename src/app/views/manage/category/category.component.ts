@@ -16,7 +16,7 @@ export class CategoryComponent implements OnInit {
   category: Category = new Category();
 
 
-  private baseUrlstatus = 'http://localhost:8080/springboot-crud-rest/api/cat/categorys';
+  
 
   constructor(private categoryService: CategoryService,
     private router: Router,private http: HttpClient) {}
@@ -26,6 +26,7 @@ export class CategoryComponent implements OnInit {
   }
 
   reloadData() {
+    console.log("call Reload data");
     this.categorys = this.categoryService.getCategorysList();
   }
 

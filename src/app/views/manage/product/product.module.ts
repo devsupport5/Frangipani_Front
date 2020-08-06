@@ -9,11 +9,14 @@ import { AddProductComponent } from './addproduct.component';
 import { ProductRoutingModule } from './product-routing.module';
 import { FormsModule } from '@angular/forms';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 @NgModule({
   imports: [
     CommonModule,
     ProductRoutingModule,
-    FormsModule
+    FormsModule,
+    ImageCropperModule
   ],
   declarations: [
     ProductComponent, 
