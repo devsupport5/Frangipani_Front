@@ -12,6 +12,7 @@
               <option value="0"  ng-reflect-value="0">Select Category</option>
               <option [value]="category.id" [selected]="category.id == product.categoryId" *ngFor="let category of categorys | async; let i = index;">{{category.categoryName}}</option>
             </select>           
+            <p class="alert alert-danger" [hidden]="categoryIdError==0">{{categoryIdMsg}}</p>
           </div>
         </div>
         <div class="form-group row">
@@ -26,26 +27,27 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Book Title</label>
           <div class="col-sm-4">
-            <input type="text" id="bookTitle" [(ngModel)]="product.bookTitle"  name="bookTitle" class="form-control" placeholder="Book Title">
+            <input type="text" id="bookTitle" [(ngModel)]="product.bookTitle"  name="bookTitle" class="form-control" placeholder="Book Title" maxlength="150">
+            <p class="alert alert-danger" [hidden]="bookTitleNameError==0">{{bookTitleNameMsg}}</p>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Book Description</label>
           <div class="col-sm-4">
             <!--<input type="text" id="description" [(ngModel)]="product.description" name="description" class="form-control" placeholder="Book Description">-->
-            <textarea cols="43" rows="4" [(ngModel)]="product.description" id="description" name="description"></textarea>
+            <textarea cols="43" rows="4" [(ngModel)]="product.description" id="description" name="description" maxlength="500"></textarea>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">SKU</label>
           <div class="col-sm-4">
-            <input type="text" id="bookSKU" name="bookSKU" [(ngModel)]="product.bookSKU" class="form-control" placeholder="SKU">
+            <input type="text" id="bookSKU" name="bookSKU" [(ngModel)]="product.bookSKU" class="form-control" placeholder="SKU" maxlength="20">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">ISBN</label>
           <div class="col-sm-4">
-            <input type="text" id="bookISNB" name="bookISNB" [(ngModel)]="product.bookISNB" class="form-control" placeholder="ISBN">
+            <input type="text" id="bookISNB" name="bookISNB" [(ngModel)]="product.bookISNB" class="form-control" placeholder="ISBN"  maxlength="17">
           </div>
         </div>
         <div class="form-group row">
@@ -62,6 +64,7 @@
           <label class="col-sm-2 col-form-label" for="input-normal">Original Price</label>
           <div class="col-sm-4">
             <input type="text" id="originalPrice" [(ngModel)]="product.originalPrice" name="originalPrice" class="form-control" placeholder="Original Price">
+            <p class="alert alert-danger" [hidden]="priceError==0">{{priceNameMsg}}</p>
           </div>
         </div>
         <div class="form-group row">
@@ -102,7 +105,7 @@
             </div>
            </div>
         </div>
-        <div class="form-group row">
+        <!--iv class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal"> Featured (Y/N)</label>
           <div class="col-sm-4"> 
             <div class="form-check form-check-inline mr-1" id="inline-radios">
@@ -112,7 +115,8 @@
               <label class="form-check-label" for="featured">No</label>
             </div>
           </div>
-        </div>
+        </div>-->
+
         <div class="form-group row">
           <label class="col-md-2 col-form-label" for="file-input">Image </label>
           <div class="col-md-9">

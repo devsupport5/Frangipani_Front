@@ -25,6 +25,9 @@ export class AddProductComponent  implements OnInit  {
   }
     
   ngOnInit() {
+    if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
+      this.router.navigate(['/login']);
+    }
     this.reloadData();
     this.productTab = new ProductTab();
     this.id = this.route.snapshot.params['id'];

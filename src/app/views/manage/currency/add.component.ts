@@ -14,11 +14,20 @@ export class AddComponent implements OnInit  {
   currency: Currency = new Currency();
   submitted = false;
 
+  currencyNameError: any = 0;
+  currencyNameMsg: any = '';
+  currencySymbolError: any = 0;
+  currencySymbolMsg: any = '';
+
+
   constructor(private route: ActivatedRoute,private currencyService: CurrencyService,
     private router: Router) { }
    
 
   ngOnInit() {
+    if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
+      this.router.navigate(['/login']);
+    }
     this.currency = new Currency();
     this.id = this.route.snapshot.params['id'];
     this.currencyService.getCurrency(this.id)
@@ -34,6 +43,11 @@ export class AddComponent implements OnInit  {
     this.currency = new Currency();
   }
 
+  setFlags(){
+    this.currencyNameError = 0;
+    this.currencySymbolError = 0;
+  }
+
   save() {
     this.currencyService.createCurrency(this.currency)
       .subscribe(data => console.log(data), error => console.log(error));
@@ -42,8 +56,21 @@ export class AddComponent implements OnInit  {
   }
 
   onSubmit() {
-    this.submitted = true;
-    this.save();    
+    //this.submitted = true;
+    //this.save();    
+    if(!this.currency.currencyName){
+      this.currencyNameError = 1;
+      this.currencyNameMsg = "Currency Name cannot be empty";
+      console.log("inside if");
+    }else if(!this.currency.currencySymbol){
+      this.currencySymbolError = 1;
+      this.currencySymbolMsg = "Currency symbol cannot be empty";
+      console.log("inside if");
+    }else{
+      console.log("Form submitted successfully");
+      this.submitted = true;
+      this.save(); 
+      }  
   }
 
   gotoList() {

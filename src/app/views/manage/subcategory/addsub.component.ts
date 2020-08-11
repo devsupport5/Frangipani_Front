@@ -14,7 +14,11 @@ export class AddsubComponent implements OnInit  {
   submitted = false;
   categorys: Observable<Subcategory[]>;
   
-
+  parentIdError: any = 0;
+  parentIdMsg: any = '';
+  subcategoryNameError: any = 0;
+  subcategoryNameMsg: any = '';
+ 
   constructor(private route: ActivatedRoute,private categoryService: SubcategoryService,
     private router: Router) { }
 
@@ -24,9 +28,15 @@ export class AddsubComponent implements OnInit  {
    
  
   ngOnInit() {
+    if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
+      this.router.navigate(['/login']);
+    }
     this.reloadData();
     this.subcategory = new Subcategory();
     this.id = this.route.snapshot.params['id'];
+
+    
+
     this.categoryService.getCategory(this.id)
       .subscribe(data => {
         console.log("call-----------"+data)
@@ -34,7 +44,16 @@ export class AddsubComponent implements OnInit  {
       }, error => console.log(error));
 
       this.subcategory.parentId = 0;
+      if(localStorage.getItem("categoryId")!=null){
+        console.log("This is calll----------------------"+localStorage.getItem("categoryId")) 
+       this.subcategory.parentId = Number(localStorage.getItem("categoryId"));
+     }
   }
+
+  onOptionsSelected(value:number){
+    console.log("the selected value is " + value);
+    localStorage.setItem("categoryId",value+"");    
+}
 
   newCategory(): void {
     this.submitted = false;
@@ -44,13 +63,34 @@ export class AddsubComponent implements OnInit  {
   save() {
     this.categoryService.createCategory(this.subcategory)
       .subscribe(data => console.log(data), error => console.log(error));
+      localStorage.setItem("categoryId",this.subcategory.parentId+"");
     this.subcategory = new Subcategory();
     this.gotoList();
   }
 
   onSubmit() {
-    this.submitted = true;
-    this.save();    
+
+    if(!this.subcategory.parentId){
+      this.parentIdError = 1;
+      this.parentIdMsg = "Please select category";
+      console.log("inside if");
+    }else if(!this.subcategory.categoryName){
+      this.subcategoryNameError = 1;
+      this.subcategoryNameMsg = "Sub category name cannot be empty";
+      console.log("inside if");
+    }else{
+      console.log("Form submitted successfully");
+      this.submitted = true;
+      this.save(); 
+      }  
+
+    //this.submitted = true;
+    //this.save();    
+  }
+
+  setFlags(){
+    this.parentIdError = 0;
+    this.subcategoryNameError = 0;
   }
 
   gotoList() {

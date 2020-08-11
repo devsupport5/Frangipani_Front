@@ -8,7 +8,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Slider Name</label>
           <div class="col-sm-4">
-            <input type="text"  id="sliderName" [(ngModel)]="category.sliderName"   name="sliderName" class="form-control" placeholder="Slider Name" >
+            <input type="text"  id="sliderName" [(ngModel)]="category.sliderName"   name="sliderName" class="form-control" placeholder="Slider Name" maxlength="50">
           </div> 
         </div>
         <div class="form-group row">
@@ -22,31 +22,31 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Description</label>
           <div class="col-sm-4">
-            <input type="text" id="description" [(ngModel)]="category.description" name="description" class="form-control" placeholder="Description">
+            <input type="text" id="description" [(ngModel)]="category.description" name="description" class="form-control" placeholder="Description" maxlength="150">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Detail Link</label>
           <div class="col-sm-4">
-            <input type="text" id="detailLink" [(ngModel)]="category.detailLink" name="detailLink" class="form-control" placeholder="http://www.domain.com">
+            <input type="text" id="detailLink" [(ngModel)]="category.detailLink" name="detailLink" class="form-control" placeholder="http://www.domain.com" maxlength="200">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Buy Now Link</label>
           <div class="col-sm-4">
-            <input type="text" id="buyNowLink" [(ngModel)]="category.buyNowLink" name="buyNowLink" class="form-control" placeholder="http://www.domain.com">
+            <input type="text" id="buyNowLink" [(ngModel)]="category.buyNowLink" name="buyNowLink" class="form-control" placeholder="http://www.domain.com" maxlength="200">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Title</label>
           <div class="col-sm-4">
-            <input type="text" id="title" [(ngModel)]="category.title" name="title" class="form-control" placeholder="Title">
+            <input type="text" id="title" [(ngModel)]="category.title" name="title" class="form-control" placeholder="Title" maxlength="100">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Sub Title</label>
           <div class="col-sm-4">
-            <input type="text" id="subTitle" [(ngModel)]="category.subTitle" name="subTitle" class="form-control" placeholder="Sub Title">
+            <input type="text" id="subTitle" [(ngModel)]="category.subTitle" name="subTitle" class="form-control" placeholder="Sub Title" maxlength="100">
           </div>
         </div>
 

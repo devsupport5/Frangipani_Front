@@ -8,7 +8,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Author Name</label>
           <div class="col-sm-4">
-            <input type="text" id="authorName" required [(ngModel)]="author.authorName" name="authorName" class="form-control" placeholder="Author Name">
+            <input type="text" id="authorName" required [(ngModel)]="author.authorName" name="authorName" class="form-control" placeholder="Author Name" maxlength="100">
+            <p class="alert alert-danger" [hidden]="authorNameError==0">{{authorNameMsg}}</p>
           </div>
         </div>
         <div class="form-group row">
@@ -22,7 +23,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Description</label>
           <div class="col-sm-4">
-            <input type="text" id="description" [(ngModel)]="author.description" name="description" class="form-control" placeholder="Description">
+            <input type="text" id="description" [(ngModel)]="author.description" name="description" class="form-control" placeholder="Description" maxlength="250">
           </div>
         </div>      
     </div>

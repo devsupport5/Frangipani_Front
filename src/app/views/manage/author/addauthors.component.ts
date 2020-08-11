@@ -13,10 +13,18 @@ export class AddComponent  implements OnInit  {
   author: Author = new Author();
   submitted = false;
 
+  authorNameError: any = 0;
+  authorNameMsg: any = '';
+  
+
+
   constructor(private route: ActivatedRoute,private authorService: AuthorService,
     private router: Router) { }
 
   ngOnInit() {
+    if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
+      this.router.navigate(['/login']);
+    }
     this.author = new Author();
     this.id = this.route.snapshot.params['id'];
     this.authorService.getAuthor(this.id)
@@ -30,6 +38,11 @@ export class AddComponent  implements OnInit  {
   newCategory(): void {
     this.submitted = false;
     this.author = new Author();
+  }
+
+
+  setFlags(){
+    this.authorNameError = 0;
   }
 
   save() {
@@ -62,8 +75,18 @@ export class AddComponent  implements OnInit  {
 
 
   onSubmit() {
-    this.submitted = true;
-    this.save();    
+   // this.submitted = true;
+    //this.save();  
+    if(!this.author.authorName){
+      this.authorNameError = 1;
+      this.authorNameMsg = "Author name cannot be empty";
+      console.log("inside if");
+    }
+    else{
+      console.log("Form submitted successfully");
+      this.submitted = true;
+      this.save(); 
+      }     
   }
 
   gotoList() {

@@ -26,6 +26,14 @@ export class AddProductComponent  implements OnInit  {
   croppedImage: any = '';
   flag: number = 0;
 
+  categoryIdError: any = 0;
+  categoryIdMsg: any = '';
+  bookTitleNameError: any = 0;
+  bookTitleNameMsg: any = '';
+  priceError: any = 0;
+  priceNameMsg: any = '';
+  
+
   constructor(private route: ActivatedRoute,private productService: ProductService,
     private router: Router) { }
 
@@ -43,6 +51,9 @@ export class AddProductComponent  implements OnInit  {
 
 
   ngOnInit() {
+    if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
+      this.router.navigate(['/login']);
+    }
     this.reloadData();
     this.product = new Product();
     this.id = this.route.snapshot.params['id'];
@@ -83,9 +94,42 @@ export class AddProductComponent  implements OnInit  {
     this.gotoList();
   }
 
+  setFlags(){
+    this.categoryIdError = 0;
+    this.bookTitleNameError = 0;
+    this.priceError = 0;
+  }
+
+
   onSubmit() {
-    this.submitted = true;
-    this.save();    
+ 
+
+
+console.log("conditin :::")
+    if(!this.product.categoryId){
+      this.categoryIdError = 1;
+      this.categoryIdMsg = "Please select category";
+      console.log("inside if");
+    }else if(!this.product.bookTitle){
+      this.bookTitleNameError = 1;
+      this.bookTitleNameMsg = "Book title cannot be empty";
+      console.log("inside if");
+    }else if(!this.product.originalPrice){
+      this.priceError = 1;
+      this.priceNameMsg = "Book price cannot be empty";
+      console.log("inside if");
+    }else if(!parseFloat(this.product.originalPrice+"")){
+      this.priceError = 1;
+      this.priceNameMsg = "Price only numeric";
+      console.log("inside if");
+    }else{
+      console.log("Form submitted successfully");
+      this.submitted = true;
+      this.save(); 
+      }  
+
+   // this.submitted = true;
+    //this.save();    
   }
 
   gotoList() {

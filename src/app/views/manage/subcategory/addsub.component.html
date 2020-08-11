@@ -8,22 +8,25 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Category Name</label>
           <div class="col-sm-4"> 
-            <select  class="form-control" [(ngModel)]="subcategory.parentId" id="parentId" name="parentId" >
+            <select #mySelect (change)='onOptionsSelected(mySelect.value)'  class="form-control" [(ngModel)]="subcategory.parentId" id="parentId" name="parentId" >
               <option value="0" ng-reflect-value="0">Select Category</option>
               <option [value]="category.id" [selected]="category.id == subcategory.parentId" *ngFor="let category of categorys | async; let i = index;">{{category.categoryName}}</option>
             </select>
+            <p class="alert alert-danger" [hidden]="parentIdError==0">{{parentIdMsg}}</p>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Sub Category Name</label>
           <div class="col-sm-4">
-            <input type="text" id="categoryName" [(ngModel)]="subcategory.categoryName"  name="categoryName" class="form-control" placeholder="Sub Category Name">
+            <input type="text" id="categoryName" [(ngModel)]="subcategory.categoryName"  name="categoryName" class="form-control" placeholder="Sub Category Name"  maxlength="150">
+            <p class="alert alert-danger" [hidden]="subcategoryNameError==0">{{subcategoryNameMsg}}</p>
           </div>
+
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Description</label>
           <div class="col-sm-4">
-            <input type="text" id="input-normal" [(ngModel)]="subcategory.description"  name="input-normal" class="form-control" placeholder="Description">
+            <input type="text" id="input-normal" [(ngModel)]="subcategory.description"  name="input-normal" class="form-control" placeholder="Description" maxlength="250">
           </div>
         </div>      
     </div>

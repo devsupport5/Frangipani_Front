@@ -9,13 +9,15 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Currency Name</label>
           <div class="col-sm-4">
-            <input type="text" id="currencyName" required [(ngModel)]="currency.currencyName" name="currencyName" class="form-control" placeholder="Currency Name">
+            <input type="text" id="currencyName" required [(ngModel)]="currency.currencyName" name="currencyName" class="form-control" placeholder="Currency Name"  maxlength="50">
+            <p class="alert alert-danger" [hidden]="currencyNameError==0">{{currencyNameMsg}}</p>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Currency Symbole</label>
           <div class="col-sm-4">
-            <input type="text" id="currencySymbol" required [(ngModel)]="currency.currencySymbol" name="currencySymbol" class="form-control" placeholder="Currency Symbole">
+            <input type="text" id="currencySymbol" required [(ngModel)]="currency.currencySymbol" name="currencySymbol" class="form-control" placeholder="Currency Symbole" maxlength="5">
+            <p class="alert alert-danger" [hidden]="currencySymbolError==0">{{currencySymbolMsg}}</p>
           </div>
         </div>
       

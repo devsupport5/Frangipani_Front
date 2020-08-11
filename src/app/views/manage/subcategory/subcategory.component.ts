@@ -18,11 +18,18 @@ export class SubCategoryComponent implements OnInit {
     private router: Router) {}
 
   ngOnInit() {
+    if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
+      this.router.navigate(['/login']);
+    }
     this.reloadData();
   }
 
   reloadData() {
     this.categorys = this.categoryService.getCategorysList();
+    if(localStorage.getItem("categoryId")!=null){
+    this.subcategory.parentId =   Number(localStorage.getItem("categoryId"));
+    this.subcategorys = this.categoryService.getSubCategorys(Number(localStorage.getItem("categoryId")));
+    }
   }
 
   deleteCategory(id: number) {
@@ -51,9 +58,13 @@ export class SubCategoryComponent implements OnInit {
 
   onOptionsSelected(value:number){
     console.log("the selected value is " + value);
+    localStorage.setItem("categoryId",value+"");
     this.subcategorys = this.categoryService.getSubCategorys(value);
 }
 
+  onChangeCategory(){
+  
+  }
 
   categoryDetails(id: number){
     this.router.navigate(['details', id]);

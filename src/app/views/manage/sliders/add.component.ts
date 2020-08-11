@@ -22,6 +22,9 @@ export class AddComponent implements OnInit  {
      
 
   ngOnInit() {
+    if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
+      this.router.navigate(['/login']);
+    }
     this.category = new Slider();
     this.id = this.route.snapshot.params['id'];
     this.sliderService.getSlider(this.id)

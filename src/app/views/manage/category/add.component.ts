@@ -17,6 +17,10 @@ export class AddComponent implements OnInit  {
   croppedImage: any = '';
   flag: number = 0;
 
+  categoryNameError: any = 0;
+  categoryNameMsg: any = '';
+  
+
   constructor(private route: ActivatedRoute,private categoryService: CategoryService,
     private router: Router) { }
 
@@ -24,6 +28,9 @@ export class AddComponent implements OnInit  {
    
 
   ngOnInit() {
+    if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
+      this.router.navigate(['/login']);
+    }
     this.category = new Category();
     this.id = this.route.snapshot.params['id'];
     this.categoryService.getCategory(this.id)
@@ -37,6 +44,10 @@ export class AddComponent implements OnInit  {
   newCategory(): void {
     this.submitted = false;
     this.category = new Category();
+  }
+
+  setFlags(){
+    this.categoryNameError = 0;
   }
 
   save() {
@@ -86,8 +97,20 @@ loadImageFailed() {
 }
  
   onSubmit() {
-    this.submitted = true;
-    this.save();    
+    //this.submitted = true;
+    //this.save();    
+
+    if(!this.category.categoryName){
+      this.categoryNameError = 1;
+      this.categoryNameMsg = "Category Name cannot be empty";
+      console.log("inside if");
+    }
+    else{
+      console.log("Form submitted successfully");
+      this.submitted = true;
+      this.save(); 
+      }   
+
   }
 
   gotoList() {

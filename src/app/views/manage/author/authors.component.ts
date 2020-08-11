@@ -18,6 +18,9 @@ export class AuthorsComponent implements OnInit {
     private router: Router) {}
 
   ngOnInit() {
+    if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
+      this.router.navigate(['/login']);
+    }
     this.reloadData();
   }
 

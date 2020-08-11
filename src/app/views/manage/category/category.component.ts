@@ -14,6 +14,8 @@ export class CategoryComponent implements OnInit {
   
   categorys: Observable<Category[]>;
   category: Category = new Category();
+  /*items = [];
+  pageOfItems: Array<any>;*/
 
 
   
@@ -23,6 +25,13 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.reloadData();
+
+    if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
+      this.router.navigate(['/login']);
+    }
+   // this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
+
+
   }
 
   reloadData() {
