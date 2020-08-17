@@ -3,7 +3,7 @@
     <div class="card-header">
       ProductTab List
       <div class="card-header-actions">
-        <a href="/#/producttab/add">
+        <a href="/{{projectName}}/#/producttab/add">
           <button type="button" class="btn btn-primary">
             Add &nbsp; <i class="fa fa-plus-square fa-lg"></i>
           </button>    
@@ -16,8 +16,8 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="input-normal">Select Product</label>
         <div class="col-sm-4">
-          <select #mySelect (change)='onOptionsSelected(mySelect.value)' class="form-control" id="select1" name="select1" >
-            <option value="" ng-reflect-value="">Select Product</option>
+          <select #mySelect (change)='onOptionsSelected(mySelect.value)' [(ngModel)]="producttab.productId" class="form-control" id="select1" name="select1" >
+            <option value="0" ng-reflect-value="0">Select Product</option>
             <option [value]="product.id" *ngFor="let product of products | async; let i = index;">{{product.bookTitle}}</option>
           </select>
         </div>

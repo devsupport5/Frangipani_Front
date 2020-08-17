@@ -15,7 +15,15 @@ export class AddProductComponent  implements OnInit  {
   productTab: ProductTab = new ProductTab();
   submitted = false;
   products: Observable<Product[]>;
-  
+  title: string;
+
+
+  productError: any = 0;
+  productNameMsg: any = '';
+  tabNameError: any = 0;
+  tabNameMsg: any = '';
+  sequenceError: any = 0;
+  sequenceNameMsg: any = '';
 
   constructor(private route: ActivatedRoute,private productTabService: ProductTabService,
     private router: Router) { }
@@ -31,14 +39,28 @@ export class AddProductComponent  implements OnInit  {
     this.reloadData();
     this.productTab = new ProductTab();
     this.id = this.route.snapshot.params['id'];
-    this.productTabService.getProductTab(this.id)
+
+    if(this.id==undefined){
+      this.title = "Add";
+    }else{
+      this.title = "Update";
+    }
+
+    if(this.id!=undefined){
+      this.productTabService.getProductTab(this.id)
       .subscribe(data => {
         console.log("call-----------"+data);
         this.productTab = data;
       }, error => console.log(error));
-      
+    }
+      this.productTab.productId = 0;
+      if(localStorage.getItem("productId")!=null){
+        console.log("This is calll---productId-------------------"+localStorage.getItem("productId")) 
+       this.productTab.productId = Number(localStorage.getItem("productId"));
+     }
       
   }
+
 
    
   save() {
@@ -48,9 +70,40 @@ export class AddProductComponent  implements OnInit  {
     this.gotoList();
   }
 
+  onOptionsSelected(value:number){
+    console.log("the selected value is " + value);
+    localStorage.setItem("productId",value+"");
+    this.setFlags();
+ }
+
+
+ setFlags(){
+  this.productError = 0;
+  this.tabNameError = 0;
+  this.sequenceError = 0;
+}
+
+
   onSubmit() {
-    this.submitted = true;
-    this.save();    
+    if(!this.productTab.productId || this.productTab.productId==0){
+      this.productError = 1;
+      this.productNameMsg = "Please select product";
+      document.getElementById("productId").focus();
+      console.log("inside if");
+    }else if(!this.productTab.tabName){
+      this.tabNameError = 1;
+      this.tabNameMsg = "Plesae select slier image";
+      document.getElementById("tabName").focus();
+      console.log("inside if");
+    }else if(isNaN(this.productTab.sequence)){
+      this.sequenceError = 1;
+      this.sequenceNameMsg = "Sequence only numeric";
+      document.getElementById("sequence").focus();
+      console.log("inside if");
+    }else{
+      this.submitted = true;
+      this.save();
+    }     
   }
 
   gotoList() {

@@ -7,7 +7,7 @@ import { AddComponent } from './add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 import { JwPaginationModule } from 'jw-angular-pagination';
 
 
@@ -21,7 +21,8 @@ import { CategoryRoutingModule } from './category-routing.module';
     FormsModule,
     ImageCropperModule,
     ReactiveFormsModule,
-    JwPaginationModule
+    JwPaginationModule,
+    NgxPaginationModule
   ],
   declarations: [
     CategoryComponent,

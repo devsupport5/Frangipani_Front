@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { ProductService } from "./crude/product.service";
 import { Product } from "./crude/product";
 import { Router } from '@angular/router';
-
+import { environment } from '../../../../environments/environment';
 
 @Component({
   templateUrl: 'product.component.html'
@@ -14,11 +14,13 @@ export class ProductComponent  implements OnInit {
   categorys: Observable<Product[]>;
   products: Observable<Product[]>;
   product: Product = new Product();
+  projectName : string;
 
   constructor(private productService: ProductService,
     private router: Router) {}
 
   ngOnInit() {
+    this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -30,13 +32,15 @@ export class ProductComponent  implements OnInit {
   }
 
   deleteProduct(id: number) {
-    this.productService.deleteProduct(id)
+    if(confirm("Are you sure to delete ")) {
+      this.productService.deleteProduct(id)
       .subscribe(
         data => {
           console.log(data);
           this.reloadData();
         },
         error => console.log(error));
+    }   
   }
 
   updateProductStatus(id: number){ 

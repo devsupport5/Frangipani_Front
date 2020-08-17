@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AuthorsComponent } from './authors.component';
 import { AddComponent } from './addauthors.component';
 import { FormsModule } from '@angular/forms';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 
@@ -15,7 +16,8 @@ import { AuthorsRoutingModule } from './authors-routing.module';
   imports: [
     CommonModule,
     AuthorsRoutingModule,
-    FormsModule
+    FormsModule,
+    ImageCropperModule
   ],
   declarations: [
     AuthorsComponent,

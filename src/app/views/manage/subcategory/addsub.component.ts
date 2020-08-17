@@ -18,6 +18,7 @@ export class AddsubComponent implements OnInit  {
   parentIdMsg: any = '';
   subcategoryNameError: any = 0;
   subcategoryNameMsg: any = '';
+  title: string;
  
   constructor(private route: ActivatedRoute,private categoryService: SubcategoryService,
     private router: Router) { }
@@ -35,14 +36,19 @@ export class AddsubComponent implements OnInit  {
     this.subcategory = new Subcategory();
     this.id = this.route.snapshot.params['id'];
 
-    
+    if(this.id==undefined){
+      this.title = "Add";
+    }else{
+      this.title = "Update";
+    }
 
+    if(this.id!=undefined){
     this.categoryService.getCategory(this.id)
       .subscribe(data => {
         console.log("call-----------"+data)
         this.subcategory = data;
       }, error => console.log(error));
-
+    }
       this.subcategory.parentId = 0;
       if(localStorage.getItem("categoryId")!=null){
         console.log("This is calll----------------------"+localStorage.getItem("categoryId")) 
@@ -52,7 +58,8 @@ export class AddsubComponent implements OnInit  {
 
   onOptionsSelected(value:number){
     console.log("the selected value is " + value);
-    localStorage.setItem("categoryId",value+"");    
+    localStorage.setItem("categoryId",value+"");  
+    this.setFlags();  
 }
 
   newCategory(): void {
@@ -70,14 +77,16 @@ export class AddsubComponent implements OnInit  {
 
   onSubmit() {
 
-    if(!this.subcategory.parentId){
+    if(!this.subcategory.parentId || this.subcategory.parentId==0){
       this.parentIdError = 1;
       this.parentIdMsg = "Please select category";
       console.log("inside if");
+      document.getElementById("parentId").focus();
     }else if(!this.subcategory.categoryName){
       this.subcategoryNameError = 1;
       this.subcategoryNameMsg = "Sub category name cannot be empty";
       console.log("inside if");
+      document.getElementById("categoryName").focus();
     }else{
       console.log("Form submitted successfully");
       this.submitted = true;

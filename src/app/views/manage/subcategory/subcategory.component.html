@@ -4,7 +4,7 @@
       Sub Category List
 
       <div class="card-header-actions">
-        <a href="/#/subcategory/add" >
+        <a href="/{{projectName}}/#/subcategory/add" >
           <button type="button" class="btn btn-primary">
             Add &nbsp; <i class="fa fa-plus-square fa-lg"></i>
           </button>   
@@ -18,7 +18,7 @@
         <label class="col-sm-2 col-form-label" for="input-normal">Select Category</label>
         <div class="col-sm-4">
           <select #mySelect (change)='onOptionsSelected(mySelect.value)' [(ngModel)]="subcategory.parentId" class="form-control" id="select1" name="select1" >
-            <option value="" ng-reflect-value="">Select Category</option>
+            <option value="0" ng-reflect-value="0">Select Category</option>
             <option [value]="category.id" *ngFor="let category of categorys | async; let i = index;">{{category.categoryName}}</option>
           </select>
         </div>

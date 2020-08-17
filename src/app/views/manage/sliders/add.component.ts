@@ -13,7 +13,12 @@ export class AddComponent implements OnInit  {
   id: number;
   category: Slider = new Slider();
   submitted = false;
-   
+  title: string;
+
+  sliderNameError: any = 0;
+  sliderNameMsg: any = '';
+  sliderImageError: any = 0;
+  sliderImageMsg: any = '';
 
   constructor(private route: ActivatedRoute,private sliderService: SliderService,
     private router: Router) { }
@@ -27,12 +32,20 @@ export class AddComponent implements OnInit  {
     }
     this.category = new Slider();
     this.id = this.route.snapshot.params['id'];
+
+    if(this.id==undefined){
+      this.title = "Add";
+    }else{
+      this.title = "Update";
+    }
+
+    if(this.id!=undefined){
     this.sliderService.getSlider(this.id)
       .subscribe(data => {
         console.log(data)
         this.category = data;
       }, error => console.log(error));
-
+    }
 
        
 
@@ -77,6 +90,11 @@ export class AddComponent implements OnInit  {
     this.category = new Slider();
   }
 
+  setFlags(){
+    this.sliderNameError = 0;
+    this.sliderImageError = 0;
+  }
+
   save() {
     this.sliderService.createSlider(this.category)
       .subscribe(data => console.log(data), error => console.log(error));
@@ -85,8 +103,19 @@ export class AddComponent implements OnInit  {
   }
 
   onSubmit() {
-    this.submitted = true;
-    this.save();    
+    if(!this.category.sliderName){
+      this.sliderNameError = 1;
+      this.sliderNameMsg = "Slider name can not be empty";
+      document.getElementById("sliderName").focus();
+      console.log("inside if");
+    }else if(!this.category.image){
+      this.sliderImageError = 1;
+      this.sliderImageMsg = "Plesae select slier image";
+      console.log("inside if");
+    }else{
+      this.submitted = true;
+      this.save(); 
+    }    
   }
 
   gotoList() {

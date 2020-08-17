@@ -16,7 +16,7 @@ export class AddComponent implements OnInit  {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   flag: number = 0;
-
+  title: string;
   categoryNameError: any = 0;
   categoryNameMsg: any = '';
   
@@ -31,13 +31,22 @@ export class AddComponent implements OnInit  {
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
+    
     this.category = new Category();
     this.id = this.route.snapshot.params['id'];
+    if(this.id==undefined){
+      this.title = "Add";
+    }else{
+      this.title = "Update";
+    }
+
+if(this.id!=undefined){
     this.categoryService.getCategory(this.id)
       .subscribe(data => {
         console.log(data)
         this.category = data;
       }, error => console.log(error));
+    } 
 
   }
 
@@ -49,12 +58,12 @@ export class AddComponent implements OnInit  {
   setFlags(){
     this.categoryNameError = 0;
   }
-
-  save() {
-    this.categoryService.createCategory(this.category)
+ 
+ async save() {
+     this.categoryService.createCategory(this.category)
       .subscribe(data => console.log(data), error => console.log(error));
     this.category = new Category();
-    this.gotoList();
+     this.gotoList();
   }
 
   onFileChanged(event) {
@@ -104,6 +113,7 @@ loadImageFailed() {
       this.categoryNameError = 1;
       this.categoryNameMsg = "Category Name cannot be empty";
       console.log("inside if");
+      document.getElementById("categoryName").focus();
     }
     else{
       console.log("Form submitted successfully");

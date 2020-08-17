@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule,PreloadAllModules } from '@angular/router';
 import { CategoryComponent } from './category.component';
 import { AddComponent } from './add.component';
 
@@ -44,4 +44,12 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
+/*
+@NgModule({
+  imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
+  ],
+
+  exports: [RouterModule]
+})*/
+
 export class CategoryRoutingModule {}

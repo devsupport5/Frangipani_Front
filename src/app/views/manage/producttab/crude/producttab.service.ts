@@ -38,7 +38,7 @@ export class ProductTabService {
   }
 
   getProduct(): Observable<any> {
-    return this.http.get(`${this.productUrl}`);
+    return this.http.get(`${this.productUrl}/activeList`);
   }
    
 

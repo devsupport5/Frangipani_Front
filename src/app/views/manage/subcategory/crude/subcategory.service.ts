@@ -43,7 +43,7 @@ export class SubcategoryService {
   }
 
   getCategorysList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+    return this.http.get(`${this.baseUrl}/categoryList`);
   }
 
   getSubCategorys(id: number): Observable<any> {    

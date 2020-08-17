@@ -4,7 +4,7 @@
       Category List
 
       <div class="card-header-actions">
-        <a href="/#/category/add">          
+        <a href="/{{projectName}}/#/category/add">          
           <button type="button" class="btn btn-primary">
             Add &nbsp; <i class="fa fa-plus-square fa-lg"></i>
           </button>          
@@ -23,8 +23,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let category of categorys | async; let i = index;">
-              <td class="rowData" (click)="updateCategory(category.id)">{{i+1}}</td>
+            <tr *ngFor="let category of collection | paginate: config; let i = index;">
+              <td class="rowData" (click)="updateCategory(category.id)">
+                 <span *ngIf="this.config.currentPage==1">
+                    {{i+1}}
+                 </span>
+                 <span *ngIf="this.config.currentPage > 1">
+                  {{((this.config.currentPage-1) * this.config.itemsPerPage) + (i+1)}}
+               </span>
+                  
+              </td>
               <td class="rowData" (click)="updateCategory(category.id)">{{category.categoryName}}</td>
               <td style="text-align: center;">
                   <span *ngIf="category.isActive == 0"> 
@@ -38,6 +46,8 @@
             </tr>            
           </tbody>
         </table>
+
+        <pagination-controls style="float: right;" (pageChange)="pageChange($event)" class="pagination"></pagination-controls>
        <!--  <ul class="pagination">
           <li class="page-item"><a class="page-link" href="#">Prev</a></li>
           <li class="page-item active">

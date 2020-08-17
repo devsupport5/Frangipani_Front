@@ -2,9 +2,11 @@ import { Component,OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { CategoryService } from "./crude/category.service";
 import { Category } from "./crude/category";
-import { Router } from '@angular/router';
-import { async } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
+
+
 
 @Component({
   templateUrl: 'category.component.html'
@@ -14,39 +16,65 @@ export class CategoryComponent implements OnInit {
   
   categorys: Observable<Category[]>;
   category: Category = new Category();
+  projectName : string;
+
+  config: any;
+  collection = [];
   /*items = [];
   pageOfItems: Array<any>;*/
 
-
   
 
-  constructor(private categoryService: CategoryService,
-    private router: Router,private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private categoryService: CategoryService,
+    private router: Router,private http: HttpClient) {
+      this.config = {
+        currentPage: 1,
+        itemsPerPage: 5,
+        totalItems:0
+      };
+      this.route.queryParams.subscribe(
+        params => this.config.currentPage= params['page']?params['page']:1 );
+    }
+
+    pageChange(newPage: number) {
+      this.router.navigate(['category'], { queryParams: { page: newPage } });
+    }
+
 
   ngOnInit() {
     this.reloadData();
-
+    this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
-   // this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
-
-
+ 
   }
+
+
+  
+  
 
   reloadData() {
-    console.log("call Reload data");
-    this.categorys = this.categoryService.getCategorysList();
+    console.log("call Reload data");  
+    //this.categorys = this.categoryService.getCategorysList();
+    this.categoryService.getCategorysList().subscribe(res => {
+      this.collection = res;
+    });
+    
   }
 
+   
   deleteCategory(id: number) {
-    this.categoryService.deleteCategory(id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
+
+    if(confirm("Are you sure to delete ")) {
+      this.categoryService.deleteCategory(id)
+        .subscribe(
+          data => {
+            console.log(data);
+            this.reloadData();
+          },
+          error => console.log(error));
+      }
   }
 
   updateCategoryStatus(id: number){ 

@@ -2,7 +2,7 @@
   <div class="card"  [hidden]="submitted">
     <form (ngSubmit)="onSubmit()" method="post" class="form-horizontal">
     <div class="card-header">
-      <strong>Add</strong> Product      
+      <strong>{{title}}</strong> Product      
     </div>
     <div class="card-body">
        <div class="form-group row">
@@ -27,7 +27,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Book Title</label>
           <div class="col-sm-4">
-            <input type="text" id="bookTitle" [(ngModel)]="product.bookTitle"  name="bookTitle" class="form-control" placeholder="Book Title" maxlength="150">
+            <input type="text" id="bookTitle" (keypress)="setFlags()" [(ngModel)]="product.bookTitle"  name="bookTitle" class="form-control" placeholder="Book Title" maxlength="150">
             <p class="alert alert-danger" [hidden]="bookTitleNameError==0">{{bookTitleNameMsg}}</p>
           </div>
         </div>
@@ -63,14 +63,14 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Original Price</label>
           <div class="col-sm-4">
-            <input type="text" id="originalPrice" [(ngModel)]="product.originalPrice" name="originalPrice" class="form-control" placeholder="Original Price">
+            <input type="text" id="originalPrice" (keypress)="setFlags()" [(ngModel)]="product.originalPrice" name="originalPrice" class="form-control" maxlength="5" placeholder="Original Price">
             <p class="alert alert-danger" [hidden]="priceError==0">{{priceNameMsg}}</p>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Discounted Price</label>
           <div class="col-sm-4">
-            <input type="text" id="discountedPrice" [(ngModel)]="product.discountedPrice" name="discountedPrice" class="form-control" placeholder="Discounted Price">
+            <input type="text" id="discountedPrice" (click)="setFlags()" [(ngModel)]="product.discountedPrice" name="discountedPrice" class="form-control" maxlength="5"  placeholder="Discounted Price">
           </div>
         </div>
         <div class="form-group row">
@@ -118,12 +118,9 @@
         </div>-->
 
         <div class="form-group row">
-          <label class="col-md-2 col-form-label" for="file-input">Image </label>
+          <label class="col-md-2 col-form-label" for="file-input">Image 1</label>
           <div class="col-md-9">
-            <!--<input id="file-input" name="file-input"  (change)="onFileChanged($event)" type="file">
-            <input id="file-input" name="file-input" [(ngModel)]="product.image" name="image" id="image" type="hidden">-->
             <input type="file" (change)="fileChangeEvent($event)" />
-
             <image-cropper 
             [imageChangedEvent]="imageChangedEvent" 
             [maintainAspectRatio]="true" 
@@ -138,9 +135,86 @@
             <img [src]="product.image"  height="35" width="35" alt=""> 
           </div>
         </div>  
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="file-input">Image 2 </label>
+          <div class="col-md-9">
+            <input type="file" (change)="fileChangeEvent1($event)" />
+            <image-cropper 
+            [imageChangedEvent]="imageChangedEvent1" 
+            [maintainAspectRatio]="true" 
+            [aspectRatio]="14 / 18"
+            [resizeToWidth]="256" 
+            format="png" 
+            (imageCropped)="imageCropped1($event)" 
+            (imageLoaded)="imageLoaded1()"
+            (cropperReady)="cropperReady()" 
+            (loadImageFailed)="loadImageFailed()"></image-cropper>
+            <img [src]="croppedImage1" />
+            <img [src]="product.image1"  height="35" width="35" alt=""> 
+          </div>
+        </div>  
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="file-input">Image 3 </label>
+          <div class="col-md-9">
+            <input type="file" (change)="fileChangeEvent2($event)" />
+            <image-cropper 
+            [imageChangedEvent]="imageChangedEvent2" 
+            [maintainAspectRatio]="true" 
+            [aspectRatio]="14 / 18"
+            [resizeToWidth]="256" 
+            format="png" 
+            (imageCropped)="imageCropped2($event)" 
+            (imageLoaded)="imageLoaded2()"
+            (cropperReady)="cropperReady()" 
+            (loadImageFailed)="loadImageFailed()"></image-cropper>
+            <img [src]="croppedImage2" />
+            <img [src]="product.image2"  height="35" width="35" alt=""> 
+          </div>
+        </div>  
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="file-input">Image 4 </label>
+          <div class="col-md-9">
+            <input type="file" (change)="fileChangeEvent3($event)" />
+            <image-cropper 
+            [imageChangedEvent]="imageChangedEvent3" 
+            [maintainAspectRatio]="true" 
+            [aspectRatio]="14 / 18"
+            [resizeToWidth]="256" 
+            format="png" 
+            (imageCropped)="imageCropped3($event)" 
+            (imageLoaded)="imageLoaded3()"
+            (cropperReady)="cropperReady()" 
+            (loadImageFailed)="loadImageFailed()"></image-cropper>
+            <img [src]="croppedImage3" />
+            <img [src]="product.image3"  height="35" width="35" alt=""> 
+          </div>
+        </div>  
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="file-input">Image 5 </label>
+          <div class="col-md-9">
+            <input type="file" (change)="fileChangeEvent4($event)" />
+            <image-cropper 
+            [imageChangedEvent]="imageChangedEvent4" 
+            [maintainAspectRatio]="true" 
+            [aspectRatio]="14 / 18"
+            [resizeToWidth]="256" 
+            format="png" 
+            (imageCropped)="imageCropped4($event)" 
+            (imageLoaded)="imageLoaded4()"
+            (cropperReady)="cropperReady()" 
+            (loadImageFailed)="loadImageFailed()"></image-cropper>
+            <img [src]="croppedImage4" />
+            <img [src]="product.image4"  height="35" width="35" alt=""> 
+          </div>
+        </div>  
+
     </div>
     <div class="card-footer">
-      <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+      <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>&nbsp;&nbsp;
       <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
     </div>
   </form>

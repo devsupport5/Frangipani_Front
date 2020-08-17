@@ -2,7 +2,7 @@
   <div class="card" [hidden]="submitted">
     <form (ngSubmit)="onSubmit()" method="post" class="form-horizontal">
     <div class="card-header">
-      <strong>Add</strong> Sub Category      
+      <strong>{{title}}</strong> Sub Category      
     </div>
     <div class="card-body">
         <div class="form-group row">
@@ -18,7 +18,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Sub Category Name</label>
           <div class="col-sm-4">
-            <input type="text" id="categoryName" [(ngModel)]="subcategory.categoryName"  name="categoryName" class="form-control" placeholder="Sub Category Name"  maxlength="150">
+            <input type="text" id="categoryName" (keypress)="setFlags()" [(ngModel)]="subcategory.categoryName"  name="categoryName" class="form-control" placeholder="Sub Category Name"  maxlength="150">
             <p class="alert alert-danger" [hidden]="subcategoryNameError==0">{{subcategoryNameMsg}}</p>
           </div>
 
@@ -31,7 +31,7 @@
         </div>      
     </div>
     <div class="card-footer">
-      <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+      <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>&nbsp;&nbsp;
       <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
     </div>
   </form>

@@ -13,7 +13,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="icon-user"></i></span>
                     </div>
-                    <input type="text" class="form-control" (input)="setFlags()" [(ngModel)]="login.userName" name="userName" id="userName" placeholder="userName" autocomplete="userName" required>
+                    <input type="text" class="form-control" (input)="setFlags()" [(ngModel)]="login.userName" name="userName" id="userName" placeholder="Username" autocomplete="userName" required>
                   </div>
                   <p class="alert alert-danger" [hidden]="userNameError==0">{{userNameMsg}}</p>
                   <div class="input-group mb-4">

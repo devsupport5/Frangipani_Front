@@ -18,7 +18,7 @@ export class AddComponent implements OnInit  {
   currencyNameMsg: any = '';
   currencySymbolError: any = 0;
   currencySymbolMsg: any = '';
-
+  title: string;
 
   constructor(private route: ActivatedRoute,private currencyService: CurrencyService,
     private router: Router) { }
@@ -30,12 +30,18 @@ export class AddComponent implements OnInit  {
     }
     this.currency = new Currency();
     this.id = this.route.snapshot.params['id'];
+    if(this.id==undefined){
+      this.title = "Add";
+    }else{
+      this.title = "Update";
+    }
+    if(this.id!=undefined){
     this.currencyService.getCurrency(this.id)
       .subscribe(data => {
         console.log(data)
         this.currency = data;
       }, error => console.log(error));
-
+    }
   }
 
   newCategory(): void {
@@ -62,10 +68,12 @@ export class AddComponent implements OnInit  {
       this.currencyNameError = 1;
       this.currencyNameMsg = "Currency Name cannot be empty";
       console.log("inside if");
+      document.getElementById("currencyName").focus();
     }else if(!this.currency.currencySymbol){
       this.currencySymbolError = 1;
       this.currencySymbolMsg = "Currency symbol cannot be empty";
       console.log("inside if");
+      document.getElementById("currencySymbol").focus();
     }else{
       console.log("Form submitted successfully");
       this.submitted = true;

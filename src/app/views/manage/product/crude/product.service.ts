@@ -50,11 +50,12 @@ export class ProductService {
   }
 
   getProductList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+    console.log(this.baseUrl+"/productsList");
+    return this.http.get(`${this.baseUrl}/productsList`);
   }
 
   getCategorys(): Observable<any> {    
-    return this.http.get(`${this.categoryUrl}`);
+    return this.http.get(`${this.categoryUrl}/categoryActiveList`);
   }
 
   getSubCategorys(id: number): Observable<any> {    
@@ -62,11 +63,11 @@ export class ProductService {
   }
 
   getCurrencys(): Observable<any> {    
-    return this.http.get(`${this.currencysUrl}`);
+    return this.http.get(`${this.currencysUrl}/activeList`);
   }
 
   getAuthors(): Observable<any> {    
-    return this.http.get(`${this.authorsUrl}`);
+    return this.http.get(`${this.authorsUrl}/activeList`);
   }
 
 }

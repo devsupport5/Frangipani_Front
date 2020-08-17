@@ -5,12 +5,14 @@
 
 const isProduction = false;
 const devAPIBaseURL = 'http://localhost:8080/springboot-crud-rest/api/';
-const prodAPIBaseURL = 'https://www.infoanalytica.com/';
-
+const prodAPIBaseURL = 'http://frangipanibookstest.com/api/';
+const prodProjectName = '';
+const devProjectName = '';
 
 export const environment = {
   production: false,
-  APIBaseURL: isProduction ? prodAPIBaseURL : devAPIBaseURL
+  APIBaseURL: isProduction ? prodAPIBaseURL : devAPIBaseURL,
+  ProjectName : isProduction ? prodProjectName : devProjectName,
 };
 
 

@@ -2,23 +2,25 @@
   <div class="card"  [hidden]="submitted">
     <form (ngSubmit)="onSubmit()" method="post" class="form-horizontal">
     <div class="card-header">
-      <strong>Add</strong> Product Tab     
+      <strong>{{title}}</strong> Product Tab     
     </div>
     <div class="card-body">
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Select Product</label>
           <div class="col-sm-4">
-            <select [(ngModel)]="productTab.productId" class="form-control" id="productId" name="productId" >
+            <select [(ngModel)]="productTab.productId" #mySelect  (change)='onOptionsSelected(mySelect.value)' class="form-control" id="productId" name="productId" >
               <option value="" ng-reflect-value="">Select Product</option>
               <option [value]="product.id" *ngFor="let product of products | async; let i = index;">{{product.bookTitle}}</option>
             </select>
+            <p class="alert alert-danger" [hidden]="productError==0">{{productNameMsg}}</p>            
           </div>
         </div>       
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Tab Name</label>
           <div class="col-sm-4">
-            <input type="text" id="tabName" [(ngModel)]="productTab.tabName"  name="tabName" class="form-control" placeholder="Tab Name">
+            <input type="text" id="tabName" (keypress)="setFlags()" [(ngModel)]="productTab.tabName"  name="tabName" class="form-control" placeholder="Tab Name" maxlength="100">
+            <p class="alert alert-danger" [hidden]="tabNameError==0">{{tabNameMsg}}</p>            
           </div>
         </div>
         <div class="form-group row">
@@ -30,12 +32,13 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="input-normal">Sequence</label>
           <div class="col-sm-4">
-            <input type="text" id="sequence" name="sequence" [(ngModel)]="productTab.sequence" class="form-control" placeholder="Sequence">
+            <input type="text" maxlength="2" (keypress)="setFlags()" id="sequence" name="sequence" [(ngModel)]="productTab.sequence" class="form-control" placeholder="Sequence">
+            <p class="alert alert-danger" [hidden]="sequenceError==0">{{sequenceNameMsg}}</p>            
           </div>
         </div>      
     </div>
     <div class="card-footer">
-      <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+      <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>&nbsp;&nbsp;
       <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
     </div>
   </form>

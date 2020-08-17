@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { SubcategoryService } from "./crude/subcategory.service";
 import { Subcategory } from "./crude/subcategory";
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   templateUrl: 'subcategory.component.html'
@@ -13,11 +14,13 @@ export class SubCategoryComponent implements OnInit {
   categorys: Observable<Subcategory[]>;
   subcategorys: Observable<Subcategory[]>;
   subcategory: Subcategory = new Subcategory();
+  projectName : string;
 
   constructor(private categoryService: SubcategoryService,
     private router: Router) {}
 
   ngOnInit() {
+    this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -26,9 +29,13 @@ export class SubCategoryComponent implements OnInit {
 
   reloadData() {
     this.categorys = this.categoryService.getCategorysList();
+    console.log("This asdsaj")
     if(localStorage.getItem("categoryId")!=null){
+      console.log("This ica lalsd asdsadlj")
     this.subcategory.parentId =   Number(localStorage.getItem("categoryId"));
     this.subcategorys = this.categoryService.getSubCategorys(Number(localStorage.getItem("categoryId")));
+    }else{
+      this.subcategory.parentId = 0;
     }
   }
 

@@ -23,8 +23,21 @@ export class AddProductComponent  implements OnInit  {
   subcategorys: Observable<Category[]>;
 
   imageChangedEvent: any = '';
+  imageChangedEvent1: any = '';
+  imageChangedEvent2: any = '';
+  imageChangedEvent3: any = '';
+  imageChangedEvent4: any = '';
   croppedImage: any = '';
+  croppedImage1: any = '';
+  croppedImage2: any = '';
+  croppedImage3: any = '';
+  croppedImage4: any = '';
+  
   flag: number = 0;
+  flag1: number = 0;
+  flag2: number = 0;
+  flag3: number = 0;
+  flag4: number = 0;
 
   categoryIdError: any = 0;
   categoryIdMsg: any = '';
@@ -32,7 +45,7 @@ export class AddProductComponent  implements OnInit  {
   bookTitleNameMsg: any = '';
   priceError: any = 0;
   priceNameMsg: any = '';
-  
+  title: string;
 
   constructor(private route: ActivatedRoute,private productService: ProductService,
     private router: Router) { }
@@ -47,6 +60,7 @@ export class AddProductComponent  implements OnInit  {
   onOptionsSelected(value:number){
     console.log("the selected value is " + value);
     this.subcategorys = this.productService.getSubCategorys(value);
+    this.setFlags();
   }
 
 
@@ -57,15 +71,24 @@ export class AddProductComponent  implements OnInit  {
     this.reloadData();
     this.product = new Product();
     this.id = this.route.snapshot.params['id'];
+
+    if(this.id==undefined){
+      this.title = "Add";
+    }else{
+      this.title = "Update";
+    }
+
+    if(this.id!=undefined){
     this.productService.getProduct(this.id)
       .subscribe(data => {
         console.log("call-----------"+data);
         this.product = data;
         this.subcategorys = this.productService.getSubCategorys(data.categoryId);
+        console.log(this.product.authorId);        
       }, error => console.log(error));
 
-
-      
+    }
+      console.log("id--------->>"+this.id)
       
       if(this.product){
         this.product.categoryId = 0;
@@ -105,23 +128,27 @@ export class AddProductComponent  implements OnInit  {
  
 
 
-console.log("conditin :::")
-    if(!this.product.categoryId){
+console.log("conditin :::"+this.product.categoryId)
+    if(!this.product.categoryId || this.product.categoryId==0){
       this.categoryIdError = 1;
-      this.categoryIdMsg = "Please select category";
+      this.categoryIdMsg = "Please select category";     
       console.log("inside if");
+      document.getElementById("categoryId").focus();
     }else if(!this.product.bookTitle){
       this.bookTitleNameError = 1;
       this.bookTitleNameMsg = "Book title cannot be empty";
       console.log("inside if");
+      document.getElementById("bookTitle").focus();
     }else if(!this.product.originalPrice){
       this.priceError = 1;
       this.priceNameMsg = "Book price cannot be empty";
       console.log("inside if");
+      document.getElementById("originalPrice").focus();
     }else if(!parseFloat(this.product.originalPrice+"")){
       this.priceError = 1;
       this.priceNameMsg = "Price only numeric";
       console.log("inside if");
+      document.getElementById("originalPrice").focus();
     }else{
       console.log("Form submitted successfully");
       this.submitted = true;
@@ -159,6 +186,9 @@ console.log("conditin :::")
 fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
 }
+
+
+
 imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
     console.log(this.croppedImage);
@@ -172,6 +202,65 @@ cropperReady() {
 }
 loadImageFailed() {
     /* show message */
+}
+
+
+fileChangeEvent1(event: any): void {
+  this.imageChangedEvent1 = event;
+}
+
+imageCropped1(event: ImageCroppedEvent) {
+  this.croppedImage1 = event.base64;
+  console.log(this.croppedImage1);
+  this.product.image1 = this.croppedImage1;
+}
+
+imageLoaded1() {
+  this.flag1 = 1;
+}
+
+fileChangeEvent2(event: any): void {
+  this.imageChangedEvent2 = event;
+}
+
+imageCropped2(event: ImageCroppedEvent) {
+  this.croppedImage2 = event.base64;
+  console.log(this.croppedImage2);
+  this.product.image2 = this.croppedImage2;
+}
+
+imageLoaded2() {
+  this.flag2 = 1;
+}
+
+
+fileChangeEvent3(event: any): void {
+  this.imageChangedEvent3 = event;
+}
+
+imageCropped3(event: ImageCroppedEvent) {
+  this.croppedImage3 = event.base64;
+  console.log(this.croppedImage3);
+  this.product.image3 = this.croppedImage3;
+}
+
+imageLoaded3() {
+  this.flag3 = 1;
+}
+
+
+fileChangeEvent4(event: any): void {
+  this.imageChangedEvent4 = event;
+}
+
+imageCropped4(event: ImageCroppedEvent) {
+  this.croppedImage4 = event.base64;
+  console.log(this.croppedImage4);
+  this.product.image4 = this.croppedImage4;
+}
+
+imageLoaded4() {
+  this.flag4 = 1;
 }
 
 }

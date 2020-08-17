@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { CurrencyService } from "./crude/currency.service";
 import { Currency } from "./crude/currency";
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   templateUrl: 'currency.component.html'
@@ -12,11 +13,13 @@ export class CurrencyComponent implements OnInit {
   
   currencys: Observable<Currency[]>;
   currency : Currency = new Currency();
+  projectName : string;
 
   constructor(private currencyService: CurrencyService,
     private router: Router) {}
 
   ngOnInit() {
+    this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -28,13 +31,15 @@ export class CurrencyComponent implements OnInit {
   }
 
   deleteCurrency(id: number) {
-    this.currencyService.deleteCurrency(id)
+    if(confirm("Are you sure to delete ")) {
+       this.currencyService.deleteCurrency(id)
       .subscribe(
         data => {
           console.log(data);
           this.reloadData();
         },
         error => console.log(error));
+      }
   }
 
   updateCurrencyStatus(id: number){ 

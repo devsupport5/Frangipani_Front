@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { SliderService } from "./crude/slider.service";
 import { Slider } from "./crude/slider";
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   templateUrl: 'slider.component.html'
@@ -12,11 +13,13 @@ export class SliderComponent  implements OnInit {
   
   sliders: Observable<Slider[]>;
   slider: Slider = new Slider();
+  projectName : string;
 
   constructor(private sliderService: SliderService,
     private router: Router) {}
 
   ngOnInit() {
+    this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -28,13 +31,15 @@ export class SliderComponent  implements OnInit {
   }
 
   deleteSlider(id: number) {
-    this.sliderService.deleteSlider(id)
+    if(confirm("Are you sure to delete ")) {
+      this.sliderService.deleteSlider(id)
       .subscribe(
         data => {
           console.log(data);
           this.reloadData();
         },
         error => console.log(error));
+    }   
   }
 
   updateSliderStatus(id: number){ 
