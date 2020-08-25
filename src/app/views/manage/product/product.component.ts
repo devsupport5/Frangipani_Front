@@ -2,8 +2,9 @@ import { Component,OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { ProductService } from "./crude/product.service";
 import { Product } from "./crude/product";
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   templateUrl: 'product.component.html'
@@ -16,10 +17,30 @@ export class ProductComponent  implements OnInit {
   product: Product = new Product();
   projectName : string;
 
-  constructor(private productService: ProductService,
-    private router: Router) {}
+  totalPage : string;
+  decimalOnly :number;
+  config: any;
+  collection = [];
+  filter : any;
+
+  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute,private productService: ProductService,
+    private router: Router) {      
+        this.config = {
+          currentPage: 1,
+          itemsPerPage: 10,
+          totalItems:0
+        };
+        this.route.queryParams.subscribe(
+          params => this.config.currentPage= params['page']?params['page']:1 );        
+    }
+
+    pageChange(newPage: number) {
+      console.log("queryParams :::"+newPage)
+      this.router.navigate(['product'], { queryParams: { page: newPage } });
+    }
 
   ngOnInit() {
+    this.ngxLoader.start();
     this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
@@ -28,7 +49,21 @@ export class ProductComponent  implements OnInit {
   }
 
   reloadData() {
-    this.products = this.productService.getProductList();
+    //this.products = this.productService.getProductList();
+    this.productService.getProductList().subscribe(res => {
+      this.collection = res;
+      this.totalPage = this.collection.length / this.config.itemsPerPage +"";
+      if( this.totalPage.indexOf('.') != -1 ){ //check if has decimal
+        this.decimalOnly = parseFloat(Math.abs(this.collection.length / this.config.itemsPerPage).toString().split('.')[1]);
+
+        if(this.decimalOnly > 0)
+          this.totalPage =  Math.round(parseFloat(this.totalPage) +1) +"";
+    }
+      if(this.config.currentPage > Math.round(this.collection.length / this.config.itemsPerPage)){
+        this.router.navigate(['product'], { queryParams: { page: this.totalPage } });
+      }
+      this.ngxLoader.stop();
+    });
   }
 
   deleteProduct(id: number) {

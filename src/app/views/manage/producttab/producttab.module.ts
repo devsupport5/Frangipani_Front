@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
  
 import { ProductComponent } from './producttab.component';
 import { AddProductComponent } from './addproducttab.component';
-
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 // Theme Routing
 import { ProductRoutingModule } from './producttab-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ProductRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxUiLoaderModule
   ],
   declarations: [
     ProductComponent, 

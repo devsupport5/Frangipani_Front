@@ -1,4 +1,4 @@
-<div class="animated fadeIn">
+<div class="animated fadeIn" ngxUiLoaderBlurred>
   <div class="card">
     <div class="card-header">
       Authors List
@@ -13,7 +13,9 @@
 
     </div>
     <div class="card-body">
-     
+      
+      <input style="width: 30%;margin-bottom: 10px;" class="form-control" placeholder="Search Author" type="text" name="search" [(ngModel)]="filter">      
+      
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
@@ -24,8 +26,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let author of authors | async; let i = index;">
-            <td class="rowData" (click)="updateAuthor(author.id)" >{{i+1}}</td>
+          <tr *ngFor="let author of collection | filter:filter | paginate: config; let i = index;">
+            <td class="rowData" (click)="updateAuthor(author.id)" >
+              <span *ngIf="this.config.currentPage==1">
+                {{i+1}}
+              </span>
+              <span *ngIf="this.config.currentPage > 1">
+                {{((this.config.currentPage-1) * this.config.itemsPerPage) + (i+1)}}
+              </span>
+            </td>
             <td class="rowData" (click)="updateAuthor(author.id)" >{{author.authorName}}</td>
             <td style="text-align: center;">
               <span *ngIf="author.isActive == 0"> 
@@ -39,6 +48,7 @@
           </tr>          
         </tbody>
       </table>
+      <pagination-controls style="float: right;" (pageChange)="pageChange($event)" class="pagination"></pagination-controls>
       <!-- <ul class="pagination">
         <li class="page-item"><a class="page-link" href="#">Prev</a></li>
         <li class="page-item active">
@@ -52,3 +62,4 @@
     </div>
   </div>
  </div>
+ <ngx-ui-loader></ngx-ui-loader>

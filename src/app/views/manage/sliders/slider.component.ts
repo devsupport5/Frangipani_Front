@@ -4,6 +4,7 @@ import { SliderService } from "./crude/slider.service";
 import { Slider } from "./crude/slider";
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   templateUrl: 'slider.component.html'
@@ -15,10 +16,11 @@ export class SliderComponent  implements OnInit {
   slider: Slider = new Slider();
   projectName : string;
 
-  constructor(private sliderService: SliderService,
+  constructor(private ngxLoader: NgxUiLoaderService,private sliderService: SliderService,
     private router: Router) {}
 
   ngOnInit() {
+    this.ngxLoader.start();
     this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
@@ -28,6 +30,7 @@ export class SliderComponent  implements OnInit {
 
   reloadData() {
     this.sliders = this.sliderService.getSliderList();
+    this.ngxLoader.stop();
   }
 
   deleteSlider(id: number) {

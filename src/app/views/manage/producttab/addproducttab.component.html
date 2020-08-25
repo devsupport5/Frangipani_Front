@@ -1,4 +1,4 @@
-<div class="animated fadeIn">
+<div class="animated fadeIn" ngxUiLoaderBlurred>
   <div class="card"  [hidden]="submitted">
     <form (ngSubmit)="onSubmit()" method="post" class="form-horizontal">
     <div class="card-header">
@@ -10,7 +10,7 @@
           <label class="col-sm-2 col-form-label" for="input-normal">Select Product</label>
           <div class="col-sm-4">
             <select [(ngModel)]="productTab.productId" #mySelect  (change)='onOptionsSelected(mySelect.value)' class="form-control" id="productId" name="productId" >
-              <option value="" ng-reflect-value="">Select Product</option>
+              <option value="0" ng-reflect-value="0">Select Product</option>
               <option [value]="product.id" *ngFor="let product of products | async; let i = index;">{{product.bookTitle}}</option>
             </select>
             <p class="alert alert-danger" [hidden]="productError==0">{{productNameMsg}}</p>            
@@ -44,3 +44,4 @@
   </form>
   </div>
  </div>
+ <ngx-ui-loader></ngx-ui-loader>

@@ -4,7 +4,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { ProductTabService } from './crude/producttab.service';
 import { Product } from "../product/crude/product";
 import { Observable } from "rxjs";
-
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   templateUrl: 'addproducttab.component.html'
@@ -25,14 +25,16 @@ export class AddProductComponent  implements OnInit  {
   sequenceError: any = 0;
   sequenceNameMsg: any = '';
 
-  constructor(private route: ActivatedRoute,private productTabService: ProductTabService,
+  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute,private productTabService: ProductTabService,
     private router: Router) { }
 
    reloadData() {
      this.products = this.productTabService.getProduct();
+     
   }
     
   ngOnInit() {
+    this.ngxLoader.start();
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -51,12 +53,17 @@ export class AddProductComponent  implements OnInit  {
       .subscribe(data => {
         console.log("call-----------"+data);
         this.productTab = data;
+        this.ngxLoader.stop();
       }, error => console.log(error));
+    }else{
+      this.ngxLoader.stop();
     }
-      this.productTab.productId = 0;
+      
       if(localStorage.getItem("productId")!=null){
         console.log("This is calll---productId-------------------"+localStorage.getItem("productId")) 
        this.productTab.productId = Number(localStorage.getItem("productId"));
+     }else{
+      this.productTab.productId = 0;
      }
       
   }
@@ -65,9 +72,13 @@ export class AddProductComponent  implements OnInit  {
    
   save() {
     this.productTabService.createProductTab(this.productTab)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        console.log(data)
+        if(data!=null)
+            this.gotoList();
+       } , error => console.log(error));
     this.productTab = new ProductTab();
-    this.gotoList();
+    //this.gotoList();
   }
 
   onOptionsSelected(value:number){

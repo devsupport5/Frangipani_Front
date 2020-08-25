@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
+import { Author } from "./author";
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,6 @@ export class AuthorService {
   }
 
   getAuthorList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+    return this.http.get<Author>(`${this.baseUrl}/authorList`);
   }
 }

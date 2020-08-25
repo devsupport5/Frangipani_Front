@@ -5,8 +5,7 @@ import { Category } from "./crude/category";
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-
-
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   templateUrl: 'category.component.html'
@@ -17,36 +16,43 @@ export class CategoryComponent implements OnInit {
   categorys: Observable<Category[]>;
   category: Category = new Category();
   projectName : string;
-
+  
+  totalPage : string;
+  decimalOnly :number;
   config: any;
   collection = [];
+  filter : any;
   /*items = [];
   pageOfItems: Array<any>;*/
 
   
 
-  constructor(private route: ActivatedRoute, private categoryService: CategoryService,
+  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute, private categoryService: CategoryService,
     private router: Router,private http: HttpClient) {
       this.config = {
         currentPage: 1,
-        itemsPerPage: 5,
+        itemsPerPage: 10,
         totalItems:0
       };
       this.route.queryParams.subscribe(
-        params => this.config.currentPage= params['page']?params['page']:1 );
+        params => this.config.currentPage= params['page']?params['page']:1 );        
     }
 
     pageChange(newPage: number) {
+      console.log("queryParams :::"+newPage)
       this.router.navigate(['category'], { queryParams: { page: newPage } });
     }
 
 
   ngOnInit() {
+    this.ngxLoader.start();
     this.reloadData();
     this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
+
+
  
   }
 
@@ -56,9 +62,19 @@ export class CategoryComponent implements OnInit {
 
   reloadData() {
     console.log("call Reload data");  
-    //this.categorys = this.categoryService.getCategorysList();
     this.categoryService.getCategorysList().subscribe(res => {
       this.collection = res;
+      this.totalPage = this.collection.length / this.config.itemsPerPage +"";
+      if( this.totalPage.indexOf('.') != -1 ){ //check if has decimal
+        this.decimalOnly = parseFloat(Math.abs(this.collection.length / this.config.itemsPerPage).toString().split('.')[1]);
+
+        if(this.decimalOnly > 0)
+          this.totalPage =  Math.round(parseFloat(this.totalPage) +1) +"";
+    }
+      if(this.config.currentPage > Math.round(this.collection.length / this.config.itemsPerPage)){
+        this.router.navigate(['category'], { queryParams: { page: this.totalPage } });
+      }
+      this.ngxLoader.stop();
     });
     
   }

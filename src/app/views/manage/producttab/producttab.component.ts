@@ -5,6 +5,7 @@ import { ProductTab } from "./crude/producttab";
 import { Product } from "../product/crude/product";
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   templateUrl: 'producttab.component.html'
@@ -19,12 +20,13 @@ export class ProductComponent  implements OnInit {
   projectName : string;
   producttab : ProductTab = new ProductTab;
 
-  constructor(private productTabService: ProductTabService,
+  constructor(private ngxLoader: NgxUiLoaderService,private productTabService: ProductTabService,
     private router: Router) {}
 
     
 
   ngOnInit() {
+    this.ngxLoader.start();
     this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
@@ -40,8 +42,10 @@ export class ProductComponent  implements OnInit {
       console.log("This is calll---productId-------------------"+localStorage.getItem("productId")) 
      this.producttab.productId = Number(localStorage.getItem("productId"));
      this.producttabs = this.productTabService.getProductTabList(this.producttab.productId);
+     this.ngxLoader.stop();
    }else{
     this.producttab.productId = 0;
+    this.ngxLoader.stop();
    }
   }
 

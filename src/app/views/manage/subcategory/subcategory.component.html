@@ -1,4 +1,4 @@
-<div class="animated fadeIn">
+<div class="animated fadeIn" ngxUiLoaderBlurred>
   <div class="card">
     <div class="card-header">
       Sub Category List
@@ -14,6 +14,8 @@
     </div>
     <div class="card-body">
 
+      
+
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="input-normal">Select Category</label>
         <div class="col-sm-4">
@@ -21,6 +23,9 @@
             <option value="0" ng-reflect-value="0">Select Category</option>
             <option [value]="category.id" *ngFor="let category of categorys | async; let i = index;">{{category.categoryName}}</option>
           </select>
+        </div>
+        <div class="col-sm-4">
+            <input  style="margin-bottom: 10px;" #search (keyup)="getSubCategoryList(search.value)" class="form-control" placeholder="Search Subcategory" type="text" name="search" id="search" [(ngModel)]="filter">      
         </div>
       </div>
 
@@ -34,8 +39,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let category of subcategorys | async; let i = index;">
-            <td class="rowData" (click)="updateCategory(category.id)">{{i+1}}</td>
+          <tr *ngFor="let category of collection | filter:filter | paginate: config; let i = index;">
+            <td class="rowData" (click)="updateCategory(category.id)">
+              <span *ngIf="this.config.currentPage==1 || this.config.currentPage==0">
+                {{i+1}}
+              </span>
+              <span *ngIf="this.config.currentPage > 1">
+                {{((this.config.currentPage-1) * this.config.itemsPerPage) + (i+1)}}
+              </span>
+            </td>
             <td class="rowData" (click)="updateCategory(category.id)" >{{category.categoryName}}</td>
             <td style="text-align: center;">
               <span *ngIf="category.isActive == 0"> 
@@ -49,6 +61,7 @@
           </tr>           
         </tbody>
       </table>
+      <pagination-controls style="float: right;" (pageChange)="pageChange($event)" class="pagination"></pagination-controls>
       <!-- <ul class="pagination">
         <li class="page-item"><a class="page-link" href="#">Prev</a></li>
         <li class="page-item active">
@@ -62,3 +75,4 @@
     </div>
   </div>
  </div>
+ <ngx-ui-loader></ngx-ui-loader>

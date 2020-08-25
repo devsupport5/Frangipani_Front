@@ -2,8 +2,10 @@ import { Component,OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { SubcategoryService } from "./crude/subcategory.service";
 import { Subcategory } from "./crude/subcategory";
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+
 
 @Component({
   templateUrl: 'subcategory.component.html'
@@ -16,10 +18,31 @@ export class SubCategoryComponent implements OnInit {
   subcategory: Subcategory = new Subcategory();
   projectName : string;
 
-  constructor(private categoryService: SubcategoryService,
-    private router: Router) {}
+  totalPage : string;
+  decimalOnly :number;
+  config: any;
+  collection = [];
+  filter : any;
+
+  constructor(private ngxLoader: NgxUiLoaderService,private categoryService: SubcategoryService,
+    private router: Router,private route: ActivatedRoute) {
+      this.config = {
+        currentPage: 1,
+        itemsPerPage: 10,
+        totalItems:0
+      };
+      this.route.queryParams.subscribe(
+        params => this.config.currentPage= params['page']?params['page']:1 );        
+    }
+
+    pageChange(newPage: number) {
+      console.log("queryParams :::"+newPage)
+      this.router.navigate(['subcategory'], { queryParams: { page: newPage } });
+    }
+
 
   ngOnInit() {
+    this.ngxLoader.start();
     this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
@@ -29,15 +52,57 @@ export class SubCategoryComponent implements OnInit {
 
   reloadData() {
     this.categorys = this.categoryService.getCategorysList();
-    console.log("This asdsaj")
+    
+    
     if(localStorage.getItem("categoryId")!=null){
-      console.log("This ica lalsd asdsadlj")
+    
     this.subcategory.parentId =   Number(localStorage.getItem("categoryId"));
-    this.subcategorys = this.categoryService.getSubCategorys(Number(localStorage.getItem("categoryId")));
+    //this.subcategorys = this.categoryService.getSubCategorys(Number(localStorage.getItem("categoryId")));
+    
+    this.categoryService.getSubCategorys(Number(localStorage.getItem("categoryId"))).subscribe(res => {
+      this.collection = res;
+      this.totalPage = this.collection.length / this.config.itemsPerPage +"";
+      if( this.totalPage.indexOf('.') != -1 ){ //check if has decimal
+        this.decimalOnly = parseFloat(Math.abs(this.collection.length / this.config.itemsPerPage).toString().split('.')[1]);
+
+        if(this.decimalOnly > 0)
+          this.totalPage =  Math.round(parseFloat(this.totalPage) +1) +"";
+    }
+      if(this.config.currentPage > Math.round(this.collection.length / this.config.itemsPerPage)){
+        this.router.navigate(['subcategory'], { queryParams: { page: this.totalPage } });
+      }
+
+    });
+        this.ngxLoader.stop();
     }else{
       this.subcategory.parentId = 0;
+      this.ngxLoader.stop();
     }
   }
+
+  getSubCategoryList(data:string){
+    
+console.log("length000-----"+ data.length)
+if(data.length > 0){
+    this.categoryService.getAllSubCategorys().subscribe(res => {
+      this.collection = res;
+      this.totalPage = this.collection.length / this.config.itemsPerPage +"";
+      if( this.totalPage.indexOf('.') != -1 ){ //check if has decimal
+        this.decimalOnly = parseFloat(Math.abs(this.collection.length / this.config.itemsPerPage).toString().split('.')[1]);
+
+        if(this.decimalOnly > 0)
+          this.totalPage =  Math.round(parseFloat(this.totalPage) +1) +"";
+    }
+      if(this.config.currentPage > Math.round(this.collection.length / this.config.itemsPerPage)){
+        this.router.navigate(['subcategory'], { queryParams: { page: this.totalPage } });
+      }
+
+    });
+  }else{ 
+    this.collection = [];
+  }
+  }
+
 
   deleteCategory(id: number) {
     this.categoryService.deleteCategory(id)
@@ -66,7 +131,24 @@ export class SubCategoryComponent implements OnInit {
   onOptionsSelected(value:number){
     console.log("the selected value is " + value);
     localStorage.setItem("categoryId",value+"");
-    this.subcategorys = this.categoryService.getSubCategorys(value);
+    //this.subcategorys = this.categoryService.getSubCategorys(value);
+
+    this.categoryService.getSubCategorys(value).subscribe(res => {
+      this.collection = res;
+      this.totalPage = this.collection.length / this.config.itemsPerPage +"";
+      if( this.totalPage.indexOf('.') != -1 ){ //check if has decimal
+        this.decimalOnly = parseFloat(Math.abs(this.collection.length / this.config.itemsPerPage).toString().split('.')[1]);
+
+        if(this.decimalOnly > 0)
+          this.totalPage =  Math.round(parseFloat(this.totalPage) +1) +"";
+    }
+      if(this.config.currentPage > Math.round(this.collection.length / this.config.itemsPerPage)){
+        this.router.navigate(['subcategory'], { queryParams: { page: this.totalPage } });
+      }
+
+    });
+
+
 }
 
   onChangeCategory(){

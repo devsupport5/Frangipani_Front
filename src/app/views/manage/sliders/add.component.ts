@@ -2,7 +2,7 @@ import { Slider } from './crude/slider';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { SliderService } from './crude/slider.service';
-
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 @Component({
@@ -20,13 +20,14 @@ export class AddComponent implements OnInit  {
   sliderImageError: any = 0;
   sliderImageMsg: any = '';
 
-  constructor(private route: ActivatedRoute,private sliderService: SliderService,
+  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute,private sliderService: SliderService,
     private router: Router) { }
 
 
      
 
   ngOnInit() {
+    this.ngxLoader.start();
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -44,7 +45,10 @@ export class AddComponent implements OnInit  {
       .subscribe(data => {
         console.log(data)
         this.category = data;
+        this.ngxLoader.stop();
       }, error => console.log(error));
+    }else{
+      this.ngxLoader.stop();
     }
 
        
@@ -97,9 +101,13 @@ export class AddComponent implements OnInit  {
 
   save() {
     this.sliderService.createSlider(this.category)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        console.log(data)
+        if(data!=null)
+            this.gotoList();
+      }, error => console.log(error));
     this.category = new Slider();
-    this.gotoList();
+    //this.gotoList();
   }
 
   onSubmit() {

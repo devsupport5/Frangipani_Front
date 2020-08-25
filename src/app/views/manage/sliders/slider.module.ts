@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { SliderComponent } from './slider.component';
 import { AddComponent } from './add.component';
-
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -16,7 +16,8 @@ import { SliderRoutingModule } from './slider-routing.module';
     CommonModule,
     SliderRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxUiLoaderModule
   ],
   declarations: [
     SliderComponent,

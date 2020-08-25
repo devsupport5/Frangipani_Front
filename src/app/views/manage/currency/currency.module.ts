@@ -5,8 +5,7 @@ import { NgModule } from '@angular/core';
 import { CurrencyComponent } from './currency.component';
 import { AddComponent } from './add.component';
 import { FormsModule } from '@angular/forms';
-
-
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 // Theme Routing
 import { CurrencyRoutingModule } from './currency-routing.module';
@@ -15,7 +14,8 @@ import { CurrencyRoutingModule } from './currency-routing.module';
   imports: [
     CommonModule,
     CurrencyRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxUiLoaderModule
   ],
   declarations: [
     CurrencyComponent,

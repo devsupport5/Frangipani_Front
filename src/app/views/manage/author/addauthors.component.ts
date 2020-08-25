@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { AuthorService } from './crude/author.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+
 
 @Component({
   templateUrl: 'addauthors.component.html'
@@ -21,11 +23,11 @@ export class AddComponent  implements OnInit  {
   flag: number = 0;
   
 
-  constructor(private route: ActivatedRoute,private authorService: AuthorService,
+  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute,private authorService: AuthorService,
     private router: Router) { }
 
   ngOnInit() {
-   
+    this.ngxLoader.start();
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -44,7 +46,10 @@ export class AddComponent  implements OnInit  {
       .subscribe(data => {
         console.log(data)
         this.author = data;
+        this.ngxLoader.stop();
       }, error => console.log(error));
+    }else{
+      this.ngxLoader.stop();
     }
   }
 
@@ -60,9 +65,14 @@ export class AddComponent  implements OnInit  {
 
   save() {
     this.authorService.createAuthor(this.author)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        console.log(data)
+        if(data!=null)
+          this.gotoList();
+      }
+        , error => console.log(error));
     this.author = new Author();
-    this.gotoList();
+    //this.gotoList();
   }
 
 

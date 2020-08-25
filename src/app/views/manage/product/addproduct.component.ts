@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 import { ActivatedRoute,Router } from '@angular/router';
 import { ProductService } from './crude/product.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-
+import { NgxUiLoaderService } from 'ngx-ui-loader';
  
 @Component({
   templateUrl: 'addproduct.component.html'
@@ -47,7 +47,7 @@ export class AddProductComponent  implements OnInit  {
   priceNameMsg: any = '';
   title: string;
 
-  constructor(private route: ActivatedRoute,private productService: ProductService,
+  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute,private productService: ProductService,
     private router: Router) { }
 
    reloadData() {
@@ -65,6 +65,7 @@ export class AddProductComponent  implements OnInit  {
 
 
   ngOnInit() {
+    this.ngxLoader.start();
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -86,7 +87,9 @@ export class AddProductComponent  implements OnInit  {
         this.subcategorys = this.productService.getSubCategorys(data.categoryId);
         console.log(this.product.authorId);        
       }, error => console.log(error));
-
+      this.ngxLoader.stop();
+    }else{
+      this.ngxLoader.stop();
     }
       console.log("id--------->>"+this.id)
       
@@ -112,9 +115,13 @@ export class AddProductComponent  implements OnInit  {
  
   save() {
     this.productService.createProduct(this.product)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        console.log(data)
+        if(data!=null)
+            this.gotoList();
+      }, error => console.log(error));
     this.product = new Product();
-    this.gotoList();
+    //this.gotoList();
   }
 
   setFlags(){

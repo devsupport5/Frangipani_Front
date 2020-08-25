@@ -2,8 +2,7 @@ import { Currency } from './crude/currency';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { CurrencyService } from './crude/currency.service';
-
-
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   templateUrl: 'add.component.html'
@@ -20,11 +19,12 @@ export class AddComponent implements OnInit  {
   currencySymbolMsg: any = '';
   title: string;
 
-  constructor(private route: ActivatedRoute,private currencyService: CurrencyService,
+  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute,private currencyService: CurrencyService,
     private router: Router) { }
    
 
   ngOnInit() {
+    this.ngxLoader.start();
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -40,7 +40,10 @@ export class AddComponent implements OnInit  {
       .subscribe(data => {
         console.log(data)
         this.currency = data;
+        this.ngxLoader.stop();
       }, error => console.log(error));
+    }else{
+      this.ngxLoader.stop();
     }
   }
 
@@ -56,9 +59,13 @@ export class AddComponent implements OnInit  {
 
   save() {
     this.currencyService.createCurrency(this.currency)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        console.log(data)
+        if(data!=null)
+          this.gotoList();
+      }, error => console.log(error));
     this.currency = new Currency();
-    this.gotoList();
+    //this.gotoList();
   }
 
   onSubmit() {

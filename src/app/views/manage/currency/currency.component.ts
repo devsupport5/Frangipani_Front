@@ -4,6 +4,7 @@ import { CurrencyService } from "./crude/currency.service";
 import { Currency } from "./crude/currency";
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   templateUrl: 'currency.component.html'
@@ -15,10 +16,11 @@ export class CurrencyComponent implements OnInit {
   currency : Currency = new Currency();
   projectName : string;
 
-  constructor(private currencyService: CurrencyService,
+  constructor(private ngxLoader: NgxUiLoaderService,private currencyService: CurrencyService,
     private router: Router) {}
 
   ngOnInit() {
+    this.ngxLoader.start();
     this.projectName = environment.ProjectName;
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
@@ -26,8 +28,9 @@ export class CurrencyComponent implements OnInit {
     this.reloadData();
   }
 
-  reloadData() {
+  reloadData() {    
     this.currencys = this.currencyService.getCurrencyList();
+    this.ngxLoader.stop();
   }
 
   deleteCurrency(id: number) {

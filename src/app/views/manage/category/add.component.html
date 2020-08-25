@@ -1,4 +1,4 @@
-<div class="animated fadeIn">
+<div class="animated fadeIn" ngxUiLoaderBlurred>
   <div class="card" [hidden]="submitted">
     <form  (ngSubmit)="onSubmit()" method="post" class="needs-validation" novalidate>
       <div class="card-header">
@@ -74,3 +74,4 @@
       });
   })();
   </script>
+  <ngx-ui-loader></ngx-ui-loader>

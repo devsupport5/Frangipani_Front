@@ -1,4 +1,4 @@
-<div class="animated fadeIn">
+<div class="animated fadeIn" ngxUiLoaderBlurred>
   <div class="card">
     <div class="card-header">
       Category List
@@ -13,7 +13,9 @@
 
     </div>
        <div class="card-body">
-        <table class="table table-striped table-bordered">
+          <input style="width: 30%;margin-bottom: 10px;" class="form-control" placeholder="Search Category" type="text" name="search" [(ngModel)]="filter">      
+        
+      <table class="table table-striped table-bordered">
           <thead>
             <tr>
               <th style="width: 3%;">#</th>
@@ -23,9 +25,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let category of collection | paginate: config; let i = index;">
+            <tr *ngFor="let category of collection | filter:filter | paginate: config ; let i = index;">
               <td class="rowData" (click)="updateCategory(category.id)">
-                 <span *ngIf="this.config.currentPage==1">
+                <span *ngIf="this.config.currentPage==1">
                     {{i+1}}
                  </span>
                  <span *ngIf="this.config.currentPage > 1">
@@ -61,3 +63,4 @@
       </div>         
   </div>
  </div>
+ <ngx-ui-loader></ngx-ui-loader>

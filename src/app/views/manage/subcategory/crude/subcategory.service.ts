@@ -47,7 +47,13 @@ export class SubcategoryService {
   }
 
   getSubCategorys(id: number): Observable<any> {    
+  console.log(this.subCategory+"/"+id);
     return this.http.get(`${this.subCategory}/${id}`);
   }
+
+  getAllSubCategorys(): Observable<any> {    
+    console.log(this.subCategory+"/allsubcategorys");
+      return this.http.get(`${this.baseUrl}/allsubcategorys`);
+    }
 
 }

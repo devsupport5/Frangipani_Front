@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { ActivatedRoute,Router } from '@angular/router';
 import { SubcategoryService } from './crude/subcategory.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   templateUrl: 'addsub.component.html'
@@ -20,7 +21,7 @@ export class AddsubComponent implements OnInit  {
   subcategoryNameMsg: any = '';
   title: string;
  
-  constructor(private route: ActivatedRoute,private categoryService: SubcategoryService,
+  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute,private categoryService: SubcategoryService,
     private router: Router) { }
 
    reloadData() {
@@ -29,6 +30,7 @@ export class AddsubComponent implements OnInit  {
    
  
   ngOnInit() {
+    this.ngxLoader.start();
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -47,7 +49,10 @@ export class AddsubComponent implements OnInit  {
       .subscribe(data => {
         console.log("call-----------"+data)
         this.subcategory = data;
+        this.ngxLoader.stop();
       }, error => console.log(error));
+    }else{
+      this.ngxLoader.stop();
     }
       this.subcategory.parentId = 0;
       if(localStorage.getItem("categoryId")!=null){
@@ -69,10 +74,14 @@ export class AddsubComponent implements OnInit  {
  
   save() {
     this.categoryService.createCategory(this.subcategory)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        console.log(data)
+        if(data!=null)
+            this.gotoList();
+      }, error => console.log(error));
       localStorage.setItem("categoryId",this.subcategory.parentId+"");
     this.subcategory = new Subcategory();
-    this.gotoList();
+    //this.gotoList();
   }
 
   onSubmit() {

@@ -39,9 +39,7 @@ export class SliderService {
   }
 
   getSliderList(): Observable<any> {
-
     console.log("Sliser"+this.baseUrl)
-
-    return this.http.get(`${this.baseUrl}`);
+    return this.http.get(`${this.baseUrl}/sliderList`);
   }
 }

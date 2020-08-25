@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { CategoryService } from './crude/category.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   templateUrl: 'add.component.html'
@@ -21,13 +22,14 @@ export class AddComponent implements OnInit  {
   categoryNameMsg: any = '';
   
 
-  constructor(private route: ActivatedRoute,private categoryService: CategoryService,
+  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute,private categoryService: CategoryService,
     private router: Router) { }
 
    
    
 
   ngOnInit() {
+    this.ngxLoader.start();
     if(localStorage.getItem("userName")=="" || localStorage.getItem("userName")==null){
       this.router.navigate(['/login']);
     }
@@ -45,7 +47,10 @@ if(this.id!=undefined){
       .subscribe(data => {
         console.log(data)
         this.category = data;
+        this.ngxLoader.stop();
       }, error => console.log(error));
+    }else{
+      this.ngxLoader.stop();
     } 
 
   }
@@ -61,9 +66,13 @@ if(this.id!=undefined){
  
  async save() {
      this.categoryService.createCategory(this.category)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+          console.log(data);
+          if(data!=null)
+            this.gotoList();
+      } , error => console.log(error));
     this.category = new Category();
-     this.gotoList();
+     
   }
 
   onFileChanged(event) {
