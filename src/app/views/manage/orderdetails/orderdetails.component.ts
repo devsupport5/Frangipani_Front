@@ -1,20 +1,20 @@
 import { Component,OnInit } from '@angular/core';
 import { Observable } from "rxjs";
-import { CategoryService } from "./crude/category.service";
-import { Category } from "./crude/category";
+import { OrderService } from "./crude/orderdetails.service";
+import { OrderDetails } from "./crude/orderdetails";
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
-  templateUrl: 'category.component.html'
+  templateUrl: 'order.component.html'
 })
-export class CategoryComponent implements OnInit {
+export class OrderDetailsComponent implements OnInit {
 
   
-  categorys: Observable<Category[]>;
-  category: Category = new Category();
+  categorys: Observable<OrderDetails[]>;
+  order: OrderDetails = new OrderDetails();
   projectName : string;
   
   totalPage : string;
@@ -27,7 +27,7 @@ export class CategoryComponent implements OnInit {
 
   
 
-  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute, private categoryService: CategoryService,
+  constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute, private orderService: OrderService,
     private router: Router,private http: HttpClient) {
       this.config = {
         currentPage: 1,
@@ -40,7 +40,7 @@ export class CategoryComponent implements OnInit {
 
     pageChange(newPage: number) {
       console.log("queryParams :::"+newPage)
-      this.router.navigate(['category'], { queryParams: { page: newPage } });
+      this.router.navigate(['order'], { queryParams: { page: newPage } });
     }
 
 
@@ -59,7 +59,7 @@ export class CategoryComponent implements OnInit {
 
   reloadData() {
     console.log("call Reload data");  
-    this.categoryService.getCategorysList().subscribe(res => {
+    this.orderService.getOrdersList().subscribe(res => {
       this.collection = res;
       this.totalPage = this.collection.length / this.config.itemsPerPage +"";
       if( this.totalPage.indexOf('.') != -1 ){ //check if has decimal
@@ -69,7 +69,7 @@ export class CategoryComponent implements OnInit {
           this.totalPage =  Math.round(parseFloat(this.totalPage) +1) +"";
     }
       if(this.config.currentPage > Math.round(this.collection.length / this.config.itemsPerPage)){
-        this.router.navigate(['category'], { queryParams: { page: this.totalPage } });
+        this.router.navigate(['order'], { queryParams: { page: this.totalPage } });
       }
       this.ngxLoader.stop();
     });
@@ -80,7 +80,7 @@ export class CategoryComponent implements OnInit {
   deleteCategory(id: number) {
 
     if(confirm("Are you sure to delete ")) {
-      this.categoryService.deleteCategory(id)
+      this.orderService.deleteOrder(id)
         .subscribe(
           data => {
             console.log(data);
@@ -91,25 +91,15 @@ export class CategoryComponent implements OnInit {
   }
 
   updateCategoryStatus(id: number){ 
-     this.categoryService.getCategory(id).subscribe(data => {
-     this.category = data;
-
-      if(this.category.isActive==0)
-        this.category.isActive = 1;
-      else
-        this.category.isActive = 0;
-         
-        this.category.id = id;
-       this.categoryService.updateCategoryStatus(id,this.category);
-    }, error => console.log(error));
+   
   }
 
-  categoryDetails(id: number){
+  orderDetails(id: number){
     this.router.navigate(['details', id]);
   }
 
-  updateCategory(id: number){
-    this.router.navigate(['category/update', id]);
+  getOrderDetails(id: number){
+    this.router.navigate(['order/update', id]);
   }
 
 }

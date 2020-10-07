@@ -1,0 +1,86 @@
+<div class="animated fadeIn" ngxUiLoaderBlurred>
+  <div class="card">
+    <div class="card-header">
+      Product Detail List
+      <div class="card-header-actions">
+         
+      </div>
+
+    </div>
+    <div class="card-body">
+
+      <p><strong>Name :</strong> {{order.billerName}}</p>
+
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+              <th>Order Number</th>
+              <td>ORD{{order.id}}</td>
+              <th>Order Date</th>
+              <td>{{order.createdDate}}</td>
+              <th>Email</th>
+              <td>{{order.deliveryUserEmail}}</td>
+          </tr>
+          <tr>
+            <th>Order Status</th>
+            <td>{{order.orderStatus}}</td>
+            <th>Payment Method</th>
+            <td>{{order.paymentMethod}}</td>
+            <th>Total Amount</th>
+            <td>{{order.amount}}.00</td>
+          </tr> 
+          <tr>
+            <th>Tracking ID</th>
+            <td>{{order.paymentId}}</td>
+            <th>Payer Id</th>
+            <td>{{order.payerID}}</td>
+          </tr>
+         </thead>
+      </table>      
+
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 3%;">#</th>
+            <th style="width: 17%;">Order Number</th> 
+            <th style="width: 17%;">Book Title</th>            
+            <th style="width: 20%;">Category Name</th>            
+            <th style="width: 15%;">Author Name</th>
+            <th style="width: 15%;">Order Qty</th>
+            <th style="width: 10%;">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of collection | filter:filter | paginate: config ; let i = index;">
+            <td class="rowData" >
+              <span *ngIf="this.config.currentPage==1">
+                  {{i+1}}
+               </span>
+               <span *ngIf="this.config.currentPage > 1">
+                {{((this.config.currentPage-1) * this.config.itemsPerPage) + (i+1)}}
+             </span>
+                
+            </td>
+            <td class="rowData" >ORD{{order.orderId}}</td>
+            <td class="rowData" >{{order.bookTitle}}</td>
+            <td class="rowData" >{{order.categoryName}}</td>
+            <td class="rowData" >{{order.authorName}}</td>
+            <td class="rowData" >{{order.qty}}</td>
+            <td class="rowData" >{{order.currencySymbol}}{{order.price}}</td>
+          </tr>            
+        </tbody>
+      </table>
+       
+
+      <strong>Address </strong>
+      <p>{{order.deliveryAdd1}} <br />
+      {{order.deliveryAdd2}} <br />
+      {{order.deliveryCountry}} {{order.deliveryState}} {{order.deliveryCity}} {{order.deliveryPinCode}}</p>
+
+       
+
+     <!-- <pagination-controls style="float: right;" (pageChange)="pageChange($event)" class="pagination"></pagination-controls> -->
+    </div>
+  </div>
+ </div>
+ <ngx-ui-loader></ngx-ui-loader>

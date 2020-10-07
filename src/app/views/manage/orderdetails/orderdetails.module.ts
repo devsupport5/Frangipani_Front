@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { OrderComponent } from './order.component';
+import { OrderDetailsComponent } from './orderdetails.component';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter'; //importing the module
 // Theme Routing
-import { OrderRoutingModule } from './order-routing.module';
-import { OrderDetailComponent } from './orderdetail.component';
+import { OrderRoutingModule } from './orderdetails-routing.module';
 
 
 @NgModule({
@@ -20,8 +19,8 @@ import { OrderDetailComponent } from './orderdetail.component';
     Ng2SearchPipeModule
   ],
   declarations: [
-    OrderComponent, 
-    OrderDetailComponent
+    OrderDetailsComponent, 
+    
   ]
 })
 export class OrderModule { }

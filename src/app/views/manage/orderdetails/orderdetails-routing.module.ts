@@ -2,33 +2,27 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
-import { OrderComponent } from './order.component';
-import { OrderDetailComponent } from './orderdetail.component';
+import { OrderDetailsComponent } from './orderdetails.component';
+
 
 const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Order'
+      title: 'Order Details'
     },
     children: [
       {
         path: '',
-        component: OrderComponent,
+        component: OrderDetailsComponent,
         data: {
-          title: 'Order'
+          title: 'Order Details'
         }
       },{
         path: 'order',
-        component: OrderComponent,
+        component: OrderDetailsComponent,
         data: {
           title: 'Order'
-        }
-      },{
-        path: 'orderdetail/:id',
-        component: OrderDetailComponent,
-        data: {
-          title: 'Order Details'
         }
       }
       
