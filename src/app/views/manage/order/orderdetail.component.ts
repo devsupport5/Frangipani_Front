@@ -25,7 +25,7 @@ export class OrderDetailComponent implements OnInit  {
   config: any;
   collection = [];
   filter : any;
-  
+  orderStatusMessage : string;
 
   constructor(private ngxLoader: NgxUiLoaderService,private route: ActivatedRoute,private orderService: OrderService,
     private router: Router) { this.config = {
@@ -100,11 +100,25 @@ this.reloadData();
   }
 
   setFlags(){
-     
-
-
-    
+       
   }
+
+
+  onOptionsSelected(value:string,orderId:number){
+    console.log("the selected value is " + value +"---orderId--"+orderId);
+    this.order.orderStatus = value;
+    //this.orderService.updateOrder(orderId,this.order);
+
+    this.orderService.updateOrder(orderId,this.order)
+    .subscribe(data => {
+      console.log(data)
+      if(data!=null)
+          this.orderStatusMessage="Order status changed successfully.";
+    }, error => console.log(error));
+
+    //localStorage.setItem("categoryId",value+"");  
+    //this.setFlags();  
+}
  
  async save() {
      

@@ -14,10 +14,10 @@
             <th style="width: 3%;">#</th>
             <th style="width: 17%;">Order Number</th>            
             <th style="width: 20%;">Customer Name</th>            
-            <th style="width: 15%;">Order Date</th>
-            <th style="width: 15%;">orderQty</th>
+            <th style="width: 20%;">Order Date</th>
+            <th style="width: 15%;">Order Quantity</th>
             <th style="width: 10%;">Payment Status</th>
-            <th style="width: 10%;text-align: right;">Paid Amount</th>
+            <th style="width: 15%;text-align: right;">Paid Amount</th>
           </tr>
         </thead>
         <tbody>
@@ -33,10 +33,10 @@
             </td>
             <td class="rowData" (click)="getOrderDetails(order.id)">ORD{{order.id}}</td>
             <td class="rowData" (click)="getOrderDetails(order.id)">{{order.billerName}}</td>
-            <td class="rowData" (click)="getOrderDetails(order.id)">{{order.createdDate}}</td>
+            <td class="rowData" (click)="getOrderDetails(order.id)">{{order.createdDate | date:'medium' }}</td>
             <td class="rowData" (click)="getOrderDetails(order.id)">{{order.orderQty}}</td>
             <td class="rowData" (click)="getOrderDetails(order.id)">{{order.orderStatus}}</td>
-            <td class="rowData" (click)="getOrderDetails(order.id)">{{order.currencyType}}{{order.amount}}</td>
+            <td class="rowData" style="text-align: right;" (click)="getOrderDetails(order.id)">{{order.currencyType}}{{order.amount}}.00</td>
           </tr>            
         </tbody>
       </table>

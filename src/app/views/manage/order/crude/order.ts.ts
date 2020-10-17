@@ -33,4 +33,5 @@ export class Order {
   privateintorderQty:string;
   payerID:string;
   paymentId:string;
+  paymentStatus:string;  
 }
