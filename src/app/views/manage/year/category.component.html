@@ -1,0 +1,66 @@
+<div class="animated fadeIn" ngxUiLoaderBlurred>
+  <div class="card">
+    <div class="card-header">
+      Category List
+
+      <div class="card-header-actions">
+        <a href="/{{projectName}}/#/category/add">          
+          <button type="button" class="btn btn-primary">
+            Add &nbsp; <i class="fa fa-plus-square fa-lg"></i>
+          </button>          
+        </a>
+      </div>
+
+    </div>
+       <div class="card-body">
+          <input style="width: 30%;margin-bottom: 10px;" class="form-control" placeholder="Search Category" type="text" name="search" [(ngModel)]="filter">      
+        
+      <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 3%;">#</th>
+              <th style="width: 87%;">Name</th>
+              <th style="width: 5%;text-align: center;">Status</th>
+              <th style="width: 5%;text-align: right;">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let category of collection | filter:filter | paginate: config ; let i = index;">
+              <td class="rowData" (click)="updateCategory(category.id)">
+                <span *ngIf="this.config.currentPage==1">
+                    {{i+1}}
+                 </span>
+                 <span *ngIf="this.config.currentPage > 1">
+                  {{((this.config.currentPage-1) * this.config.itemsPerPage) + (i+1)}}
+               </span>
+                  
+              </td>
+              <td class="rowData" (click)="updateCategory(category.id)">{{category.categoryName}}</td>
+              <td style="text-align: center;">
+                  <span *ngIf="category.isActive == 0"> 
+                      <input (click)="updateCategoryStatus(category.id)"  type="checkbox" checked>                      
+                  </span>
+                  <span *ngIf="category.isActive == 1"> 
+                    <input (click)="updateCategoryStatus(category.id)" type="checkbox"  >
+                </span>
+              </td>
+              <td style="text-align: right;"><i  (click)="deleteCategory(category.id)" class="fa fa-remove fa-lg"></i></td>
+            </tr>            
+          </tbody>
+        </table>
+
+        <pagination-controls style="float: right;" (pageChange)="pageChange($event)" class="pagination"></pagination-controls>
+       <!--  <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+          <li class="page-item active">
+            <a class="page-link" href="#">1</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>-->
+      </div>         
+  </div>
+ </div>
+ <ngx-ui-loader></ngx-ui-loader>

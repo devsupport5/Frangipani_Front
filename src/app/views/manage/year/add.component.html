@@ -1,0 +1,77 @@
+<div class="animated fadeIn" ngxUiLoaderBlurred>
+  <div class="card" [hidden]="submitted">
+    <form  (ngSubmit)="onSubmit()" method="post" class="needs-validation" novalidate>
+      <div class="card-header">
+        <strong>{{title}}</strong> Category     
+       </div>
+    <div class="card-body" >       
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Category Name</label>
+          <div class="col-sm-4">
+            <input type="text" id="categoryName" required  (keypress)="setFlags()" [(ngModel)]="category.categoryName" (ngModelChange)="setFlags()" name="categoryName" class="form-control" placeholder="Category Name"  maxlength="150">
+            <p class="alert alert-danger" [hidden]="categoryNameError==0">{{categoryNameMsg}}</p>
+          </div>
+          <div class="invalid-feedback">
+            Please choose a username.
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="input-normal">Description</label>
+          <div class="col-sm-4">
+            <input type="text" id="description" name="description" [(ngModel)]="category.description" (ngModelChange)="setFlags()" class="form-control" placeholder="Description"  maxlength="250">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="file-input">Image </label>
+          <div class="col-md-9">
+           <!-- <input id="file-input" name="file-input"  (change)="onFileChanged($event)" type="file">
+            <input id="file-input" name="file-input" [(ngModel)]="category.image" name="image" id="image" type="hidden">
+            <img [src]="category.image"  height="35" width="35" alt=""> 
+-->            <input type="file" (change)="fileChangeEvent($event)" />
+
+            <image-cropper 
+            [imageChangedEvent]="imageChangedEvent" 
+            [maintainAspectRatio]="true" 
+            [aspectRatio]="14 / 18"
+            [resizeToWidth]="256" 
+            format="png" 
+            (imageCropped)="imageCropped($event)" 
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" 
+            (loadImageFailed)="loadImageFailed()"></image-cropper>
+            <img [src]="croppedImage" />
+            <img [src]="category.image"  height="35" width="35" alt=""> 
+
+          </div>
+        </div>  
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>&nbsp;&nbsp;
+      <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+    </div>
+    </form>
+  </div>
+ </div>
+ <script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    'use strict';
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation');
+  
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+  
+          form.classList.add('was-validated');
+        }, false);
+      });
+  })();
+  </script>
+  <ngx-ui-loader></ngx-ui-loader>
